@@ -61,7 +61,7 @@
 }
 
 .life {
-    bottom: 12%;
+    bottom: 13%;
     left: -1%;
     font-size: clamp(6rem, 21vw, 24rem);
 }
