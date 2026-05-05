@@ -1,8 +1,10 @@
 .menu-wrapper {
     position: fixed;
-    top: 0; left: 0;
-    width: 100vw; height: 100vh;
-    padding: 80px; /* Margem branca idêntica à index */
+    top: 0;
+    left: 0;
+    width: 100dvw;
+    height: 100dvh;
+    padding: clamp(24px, 5vw, 80px);
     box-sizing: border-box;
     background-color: var(--text-color);
     transition: background-color 0.4s ease-in-out;
@@ -11,17 +13,18 @@
 /* Bloco Preto Interno */
 .menu-content {
     position: relative;
-    width: 100%; height: 100%;
+    width: 100%;
+    height: 100%;
     overflow: hidden;
     background-color: var(--bg-color);
     transition: background-color 0.4s ease-in-out;
-    
 }
 
 /* Grade Branca sutil */
 .menu-content .grid-svg {
     position: absolute;
-    width: 100%; height: 100%;
+    width: 100%;
+    height: 100%;
     stroke-opacity: 0.1;
     z-index: 1;
 }
@@ -29,10 +32,10 @@
 /* Layout dos Itens */
 .menu-grid-layout {
     position: relative;
-    width: 100%; height: 100%;
+    width: 100%;
+    height: 100%;
     z-index: 2;
 }
-
 
 .item {
     position: absolute;
@@ -44,52 +47,74 @@
     color: var(--text-color);
 }
 
-/* Posicionamento exato conforme o print */
-.about { bottom: 60vh; left: -0.15vh; font-size: 23.4vh; }
-.work { bottom: 40.9vh; right: 20px; font-size: 26.3vh; }
-.life { bottom: 12.5vh; left: -2.9vh; font-size: 39.8vh; }
-.contact { bottom: 0px; right: 0px; font-size: 17.4vh; }
+/* Posicionamento mais estável */
+.about {
+    top: 4%;
+    left: 0;
+    font-size: clamp(4rem, 13vw, 15rem);
+}
+
+.work {
+    top: 24%;
+    right: 2%;
+    font-size: clamp(4rem, 14vw, 16rem);
+}
+
+.life {
+    bottom: 12%;
+    left: -1%;
+    font-size: clamp(6rem, 21vw, 24rem);
+}
+
+.contact {
+    bottom: 0;
+    right: 0;
+    font-size: clamp(3rem, 9vw, 11rem);
+}
 
 /* --- Animações de Hover dos Links do Menu --- */
 
-/* ABOUT: Tremer com o hover */
 @keyframes shake {
     0%, 100% { transform: translateX(0); }
     25% { transform: translateX(-5px) rotate(-2deg); }
     50% { transform: translateX(5px) rotate(2deg); }
     75% { transform: translateX(-5px) rotate(-2deg); }
 }
+
 .about:hover {
     animation: shake 0.3s ease-in-out infinite;
 }
 
-/* WORK: Ficar só o traçado */
 .work:hover {
     color: transparent;
-    -webkit-text-stroke: 8px var(--text-color);
+    -webkit-text-stroke: clamp(2px, 0.5vw, 8px) var(--text-color);
 }
 
-/* LIFE: Aumentar e criar sombra de botão */
 .life:hover {
     transform: scale(1.05) translate(-4px, -4px);
     text-shadow: 10px 10px 0px rgba(0, 0, 0, 0.4);
 }
 
-/* CONTACT: Subir em loop (idêntico ao timing do Anime.js) */
-.contact { overflow: hidden; }
+.contact {
+    overflow: hidden;
+}
+
 .contact-inner { 
     display: inline-block;
     position: relative;
 }
+
 .contact-inner::after {
     content: "CONTACT";
     position: absolute;
     top: 100%;
     left: 0;
 }
+
 .contact:hover .contact-inner {
     animation: slideUpLoop 1.2s infinite;
 }
+
 @keyframes slideUpLoop {
     0% { transform: translateY(0%); animation-timing-function: cubic-bezier(0.55, 0.085, 0.68, 0.53); }
     40% { transform: translateY(-100%); }
@@ -119,113 +144,109 @@
     transform: rotate(-110deg);
 }
 
-        :root {
-            --bg-color: #ffffff;
-            --text-color: #1a1a1a;
-            --btn-bg: #000000;
-        }
+:root {
+    --bg-color: #ffffff;
+    --text-color: #1a1a1a;
+    --btn-bg: #000000;
+}
 
-        .index-page {
-            /* Garante que o corpo ocupe a tela toda para detectar o mouse */
-            min-height: 100vh;
-            margin: 0;
-            background-color: var(--bg-color);
-            cursor: none; /* Oculta o cursor nativo do mouse */
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            transition: background-color 0.4s ease-in-out; /* Transição fluida de cor de fundo */
-        }
-        
-        .menu-page {
-            margin: 0;
-            cursor: none; /* Oculta o cursor nativo na página do menu */
-        }
+.index-page {
+    min-height: 100dvh;
+    margin: 0;
+    background-color: var(--bg-color);
+    cursor: none;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    transition: background-color 0.4s ease-in-out;
+}
 
-        /* Garante que o cursor nativo de 'mãozinha' não apareça nos links e botões */
-        a, button {
-            cursor: none;
-        }
+.menu-page {
+    margin: 0;
+    cursor: none;
+}
 
-        .content-wrapper {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            text-align: center;
-        }
+a, button {
+    cursor: none;
+}
 
-        .main-title {
-            font-size: clamp(4.5rem, 18vw, 12rem); /* Fonte responsiva com tamanho mínimo e máximo */
-            color: var(--text-color);
-            margin: 0;
-            transition: color 0.4s ease-in-out, opacity 1s ease-in-out; /* Transição fluida da cor do texto e opacidade */
-            opacity: 0; /* Começa invisível para a introdução */
-        }
+.content-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100dvh;
+    text-align: center;
+}
 
-        #intro-text {
-            font-size: clamp(2.5rem, 4vw, 10rem);
-            color: var(--text-color);
-            position: absolute;
-            top: 45%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 100%;
-            text-align: center;
-            opacity: 1;
-            transition: opacity 1s ease-in-out, color 0.4s ease-in-out;
-            font-weight: 400;
-            padding: 0 20px;
-            box-sizing: border-box;
-        }
+.main-title {
+    font-size: clamp(4.5rem, 18vw, 12rem);
+    color: var(--text-color);
+    margin: 0;
+    transition: color 0.4s ease-in-out, opacity 1s ease-in-out;
+    opacity: 0;
+}
 
-        .cta-button {
-            padding: 1.5rem 4.5rem;
-            background-color: var(--btn-bg);
-            color: var(--bg-color);
-            text-decoration: none;
-            font-size: 3.2rem;
-            border-radius: 50px; /* Botão com cantos totalmente arredondados */
-            transition: transform 0.2s ease, background-color 0.4s ease-in-out, color 0.4s ease-in-out, opacity 1s ease-in-out;
-            position: fixed; /* Desprende o botão do fluxo do texto */
-            bottom: 35vh; /* Fica a 20% de distância da borda inferior da tela */
-            left: 50%; /* Centraliza o botão na tela... */
-            transform: translateX(-50%); /* ...ajustando o eixo exatamente para o meio */
-            z-index: 1;
-            opacity: 0; /* Começa invisível para a introdução */
-            pointer-events: none; /* Evita cliques enquanto estiver oculto */
-        }
-        
-        .cta-button:hover {
-            transform: translateX(-50%) scale(1.05); /* Aumenta ligeiramente no hover */
-        }
+#intro-text {
+    font-size: clamp(2.5rem, 4vw, 10rem);
+    color: var(--text-color);
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(100%, 1200px);
+    text-align: center;
+    opacity: 1;
+    transition: opacity 1s ease-in-out, color 0.4s ease-in-out;
+    font-weight: 400;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
 
-        
-        /* Estilo do novo cursor baseado em um elemento HTML */
-        #cursor-customizado {
-            position: fixed;
-            top: 0;
-            left: 0;
-            pointer-events: none; /* Deixa os cliques passarem pela div */
-            transform: translate(-50%, -50%); /* Centraliza a imagem (substitui o 16 16 anterior) */
-            background-color: var(--text-color); /* Preenche a máscara com a cor do texto */
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
-            -webkit-mask-size: contain;
-            mask-size: contain;
-            -webkit-mask-repeat: no-repeat;
-            mask-repeat: no-repeat;
-            -webkit-mask-position: center;
-            mask-position: center;
-            z-index: 9999; /* Garante que ficará acima de tudo na página */
-        transition: background-color 0.2s ease, filter 0.2s ease, opacity 0.2s ease;
-        }
+.cta-button {
+    padding: clamp(1rem, 2vw, 1.5rem) clamp(2rem, 5vw, 4.5rem);
+    background-color: var(--btn-bg);
+    color: var(--bg-color);
+    text-decoration: none;
+    font-size: clamp(1.5rem, 3.2vw, 3.2rem);
+    border-radius: 50px;
+    transition: transform 0.2s ease, background-color 0.4s ease-in-out, color 0.4s ease-in-out, opacity 1s ease-in-out;
+    position: fixed;
+    bottom: clamp(120px, 25dvh, 340px);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    opacity: 0;
+    pointer-events: none;
+}
 
-        /* Classe ativada dinamicamente via JS durante o hover */
-        #cursor-customizado.hover-active {
-            background-color: transparent; /* Remove o preenchimento de cor para exibir as cores nativas */
-             }
-/* Estilos para a descrição dos modelos 3D (Hover) */
+.cta-button:hover {
+    transform: translateX(-50%) scale(1.05);
+}
+
+#cursor-customizado {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    background-color: var(--text-color);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    z-index: 9999;
+    transition: background-color 0.2s ease, filter 0.2s ease, opacity 0.2s ease;
+}
+
+#cursor-customizado.hover-active {
+    background-color: transparent;
+}
+
+/* Estilos para a descrição dos modelos 3D */
 .model-desc {
     position: absolute;
     transform: translate(-50%, 0);
@@ -239,7 +260,7 @@
     padding: 15px;
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    width: 200px;
+    width: min(200px, 80vw);
     z-index: 100;
 }
 
@@ -269,22 +290,23 @@
     line-height: 1.4;
 }
 
-.marquee span, .hero-container h1 {
+.marquee span,
+.hero-container h1 {
     font-family: 'Breu', sans-serif;
     text-transform: uppercase;
 }
 
-/* Estilo para o texto explicativo (mais legível em sans-serif padrão) */
 .about-text {
-    font-family: Arial, sans-serif; /* Ou outra de sua preferência */
+    font-family: Arial, sans-serif;
     line-height: 1.6;
     color: white;
-    font-size: 2rem;
+    font-size: clamp(1.2rem, 2vw, 2rem);
 }
 
 .breu-image {
-    height: 75vh;
+    height: min(75dvh, 900px);
     width: auto;
+    max-width: 100%;
     margin-top: 20px;
     display: block;
     margin-left: auto;
@@ -293,7 +315,7 @@
 
 .fonte-destaque {
     font-family: 'Helvetica', sans-serif;
-    font-size: 6.5vw; /* Você pode aumentar só ela se quiser destaque */
+    font-size: clamp(3rem, 6.5vw, 7rem);
     text-transform: uppercase;
     line-height: 0.85;
 }
@@ -304,10 +326,13 @@
     width: 100%;
 }
 
-.breu-image, .breu-video, .negative-container {
+.breu-image,
+.breu-video,
+.negative-container {
     flex-shrink: 0;
-    height: 75vh;
+    height: min(75dvh, 900px);
     width: auto;
+    max-width: 100%;
     margin: 10px;
 }
 
@@ -328,14 +353,14 @@
 .image-description {
     color: white;
     font-family: 'helvetica', sans-serif;
-    font-size: 4rem;
+    font-size: clamp(1.5rem, 4vw, 4rem);
     margin: 0;
 }
 
 .image-sub-description {
     color: white;
     font-family: 'helvetica', sans-serif;
-    font-size: 2rem; /* Smaller font size */
+    font-size: clamp(1rem, 2vw, 2rem);
     margin: 0;
 }
 
@@ -344,62 +369,48 @@
     display: inline-block;
 }
 
-.video-text-container {
+.video-text-container,
+.video-text-container1,
+.video-text-container2 {
     position: absolute;
-    top: 20px;
-    left: 20px;
     background-color: rgba(0, 0, 0, 0.7);
     padding: 10px;
     z-index: 2;
 }
 
-.video-description {
-    color: white;
-    font-family: 'helvetica', sans-serif;
-    font-size: 4rem;
-    margin: 0;
+.video-text-container {
+    top: 20px;
+    left: 20px;
 }
 
 .video-text-container1 {
-    position: absolute;
     top: 20px;
     right: 20px;
-    background-color: rgba(0, 0, 0, 0.7);
-    padding: 10px;
-    z-index: 2;
-}
-
-.video-description1 {
-    color: white;
-    font-family: 'helvetica', sans-serif;
-    font-size: 4rem;
-    margin: 0;
 }
 
 .video-text-container2 {
-    position: absolute;
     top: 80px;
     right: 20px;
-    background-color: rgba(0, 0, 0, 0.7);
-    padding: 10px;
-    z-index: 2;
 }
 
+.video-description,
+.video-description1,
 .video-description2 {
     color: white;
     font-family: 'helvetica', sans-serif;
-    font-size: 4rem;
+    font-size: clamp(1.5rem, 4vw, 4rem);
     margin: 0;
 }
+
 .fullscreen-video {
     width: 100%;
-    height: 100vh;
+    height: 100dvh;
     display: block;
     object-fit: cover;
 }
 
 .scroll-wrapper {
-    height: 400vh;
+    height: 400dvh;
     position: relative;
     z-index: 1;
 }
@@ -407,19 +418,19 @@
 .sticky-container {
     position: sticky;
     top: 0;
-    height: 100vh;
+    height: 100dvh;
     overflow: hidden;
 }
 
 .horizontal-content {
     display: flex;
-    width: 300%; /* 3 slides */
+    width: 300%;
     transition: transform 0.1s ease-out;
 }
 
 .slide {
     width: 100%;
-    height: 100vh;
+    height: 100dvh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -428,16 +439,16 @@
 .about-text p {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     color: #FFF;
-    font-size: 6rem;
+    font-size: clamp(2rem, 6vw, 6rem);
     margin-bottom: 30px;
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: clamp(10px, 2vw, 20px);
     letter-spacing: 0.5px;
 }
 
 .breu-video {
-    width: 80%;
+    width: min(80%, 1200px);
     height: auto;
     border: 5px solid white;
 }
@@ -445,10 +456,11 @@
 .poster-image {
     width: auto;
     height: 100%;
+    max-width: 100%;
     object-fit: cover;
 }
 
-/* --- Carrossel Infinito (Marquee) --- */
+/* --- Carrossel Infinito --- */
 .marquee-container {
     width: 100%;
     overflow: hidden;
@@ -461,23 +473,16 @@
 }
 
 .marquee span {
-    font-size: 12rem;
-    font-family: 'Breu', sans-serif; /* Aplica a fonte customizada */
+    font-size: clamp(4rem, 12vw, 12rem);
+    font-family: 'Breu', sans-serif;
     color: white;
     transition: color 0.3s ease;
-    cursor: default; /* Mantém o cursor padrão */
+    cursor: default;
     line-height: 0.85;
 }
 
 .marquee span:hover {
-    color: white; /* Preenche a palavra com branco ao passar o rato */
-}
-
-.fullscreen-video {
-    width: 100%;
-    height: 100vh;
-    display: block;
-    object-fit: cover;
+    color: white;
 }
 
 .scrollable-page {
@@ -486,19 +491,19 @@
 }
 
 .section-mockups {
-    width: 100vw; /* Ocupa uma tela inteira no scroll horizontal */
-    height: 100vh;
+    width: 100dvw;
+    height: 100dvh;
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
-    background: #000000; /* Fundo levemente diferente para destacar */
+    background: #000000;
     z-index: 10;
 }
 
 #mockup-container {
     position: relative;
-    width: 90%;
+    width: min(90%, 1400px);
     height: 90%;
     overflow: hidden;
 }
@@ -510,15 +515,14 @@
     transform: translate(-50%, -50%);
     max-width: 90%;
     max-height: 90%;
-    opacity: 0; /* Começam invisíveis */
+    opacity: 0;
     transition: opacity 0.4s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
     pointer-events: none;
 }
 
-/* O estado 'active' torna a imagem visível */
 .mockup-img.active {
     opacity: 1;
-    transform: translate(-50%, -50%) scale(1.02); /* Pequeno destaque inicial */
+    transform: translate(-50%, -50%) scale(1.02);
 }
 
 #mockup-ui {
@@ -531,9 +535,9 @@
     letter-spacing: 2px;
 }
 
-/* --- Video Intro (Breu) --- */
+/* --- Video Intro --- */
 .intro-wrapper {
-    height: 150vh; /* Cria um espaço extra de meia tela para a animação ocorrer */
+    height: 150dvh;
     width: 100%;
 }
 
@@ -541,8 +545,8 @@
     position: sticky;
     top: 0;
     width: 100%;
-    height: 100vh;
-    padding: 10vw 24vw; /* Margens verticais menores e horizontais maiores */
+    height: 100dvh;
+    padding: clamp(40px, 10vw, 140px) clamp(24px, 18vw, 320px);
     box-sizing: border-box;
     display: flex;
     justify-content: center;
@@ -572,14 +576,14 @@
 
 @media (max-aspect-ratio: 1/1) {
     .intro-video-container {
-        padding: 10vw; /* Margens iguais (10vw) quando a tela for vertical ou quadrada */
+        padding: clamp(24px, 10vw, 80px);
     }
 }
 
-/* --- Life Page (Canvas 2D Interativo) --- */
+/* --- Life Page --- */
 .life-page {
     margin: 0;
-    overflow: hidden; /* Remove as barras de rolagem nativas */
+    overflow: hidden;
     background-color: #000000;
     cursor: grab;
 }
@@ -590,22 +594,26 @@
 
 #canvas-container {
     position: absolute;
-    top: 0; left: 0;
-    width: 100vw; height: 100vh;
+    top: 0;
+    left: 0;
+    width: 100dvw;
+    height: 100dvh;
     overflow: hidden;
 }
 
 #world {
     position: absolute;
-    top: 50%; left: 50%;
-    width: 0; height: 0;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
 }
 
 .work-item {
     position: absolute;
     transform: translate(-50%, -50%);
-    width: 600px;
-    height: 600px;
+    width: clamp(280px, 38vw, 600px);
+    height: clamp(280px, 38vw, 600px);
     background-color: #ffffff;
     box-shadow: 0 10px 40px rgba(0,0,0,0.08);
     border-radius: 16px;
@@ -629,7 +637,7 @@
     width: 100%;
     height: 80%;
     object-fit: cover;
-    pointer-events: none; /* Evita o drag nativo do navegador nas imagens, melhorando a navegação */
+    pointer-events: none;
 }
 
 .work-item h3 {
@@ -638,7 +646,7 @@
     display: flex;
     align-items: center;
     font-family: 'Helvetica Neue', Arial, sans-serif;
-    font-size: 1.4rem;
+    font-size: clamp(1rem, 1.4vw, 1.4rem);
     text-transform: uppercase;
     letter-spacing: 1px;
     font-weight: 700;
@@ -649,7 +657,7 @@
     bottom: 40px;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 1.2rem;
+    font-size: clamp(0.8rem, 1.2vw, 1.2rem);
     color: #dfdfdf;
     pointer-events: none;
     letter-spacing: 2px;
@@ -657,14 +665,14 @@
     z-index: 100;
 }
 
-/* --- Video Overlay (Life Page) --- */
+/* --- Video Overlay --- */
 .video-overlay {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.85); /* Fundo escuro com leve transparência */
+    width: 100dvw;
+    height: 100dvh;
+    background: rgba(0, 0, 0, 0.85);
     z-index: 1000;
     display: flex;
     justify-content: center;
@@ -680,13 +688,13 @@
 }
 
 .video-overlay video {
-    width: 90vw;
-    height: 90vh;
+    width: min(90dvw, 1400px);
+    height: 90dvh;
     object-fit: contain;
     border-radius: 12px;
     box-shadow: 0 10px 40px rgba(0,0,0,0.5);
     outline: none;
-    background-color: #000000; /* Garante que o vídeo não fique transparente enquanto decodifica */
+    background-color: #000000;
 }
 
 .close-overlay {
@@ -694,7 +702,7 @@
     top: 30px;
     right: 40px;
     color: #ffffff;
-    font-size: 2.5rem;
+    font-size: clamp(2rem, 2.5vw, 2.5rem);
     cursor: pointer;
     font-family: sans-serif;
     transition: transform 0.3s ease;
@@ -710,7 +718,7 @@
     bottom: 30px;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 1rem;
+    font-size: clamp(0.8rem, 1vw, 1rem);
     color: #ffffff;
     pointer-events: none;
     letter-spacing: 2px;
@@ -723,45 +731,43 @@
 body.contact-page {
     background-color: #ffffff;
 }
-/* Container Pai - Garante que nada suba para trás do Header */
+
 .contact-content {
     position: relative;
     width: 100%;
-    height: 110vh; /* Ocupa a tela inteira */
+    min-height: 100dvh;
     overflow: hidden;
     z-index: 10;
 }
 
-/* Lado Esquerdo - Título */
 .contact-message-container {
     position: absolute;
-    top: 290px; /* Ajuste essa altura para subir/descer o texto */
-    left: 80px;
-    max-width: 40%;
+    top: clamp(120px, 22vh, 290px);
+    left: clamp(24px, 6vw, 80px);
+    max-width: min(40%, 620px);
     pointer-events: none;
 }
 
 .contact-message-title {
     font-family: 'Helvetica', sans-serif;
-    font-size: clamp(3rem, 5vw, 6rem); /* Tamanho inteligente */
+    font-size: clamp(3rem, 5vw, 6rem);
     font-weight: 700;
     line-height: 1;
     color: #000000;
     margin: 0;
 }
 
-/* Lado Direito - O card fica "preso" no canto inferior direito */
 .contact-card {
     position: absolute;
     bottom: 0;
     right: 0;
-    width: 53%; /* Largura proporcional ao Figma */
-    min-width: 600px;
-    height: 70vh; /* Altura do card */
+    width: min(53%, 900px);
+    min-width: min(600px, 100%);
+    height: min(70dvh, 760px);
     border-top: 1px solid #000;
     border-left: 1px solid #000;
     display: flex;
-    padding: 60px;
+    padding: clamp(24px, 4vw, 60px);
     background: rgba(255, 255, 255, 0.7);
     box-sizing: border-box;
 }
@@ -779,43 +785,33 @@ body.contact-page {
     padding-left: 40px;
 }
 
-
 .input-group {
-    margin-top: 40px;
-}
-
-/* Estilização dos Inputs */
-.input-group input, 
-.input-group textarea {
-    border: none;
-    border-bottom: 5.5px solid #000; /* Linha mais fina */
-    padding: 15px 0;
-    width: 100%;
+    margin-top: clamp(20px, 4vh, 40px);
 }
 
 .input-group label {
-    font-size: 3.2rem;
+    font-size: clamp(1.5rem, 3vw, 3.2rem);
     margin-bottom: 10px;
 }
 
-.input-group input, 
+.input-group input,
 .input-group textarea {
     border: none;
     border-bottom: 2px solid #000;
     padding: 10px 0;
+    width: 100%;
     outline: none;
-    font-size: 2rem;
+    font-size: clamp(1rem, 2vw, 2rem);
     background: transparent;
 }
 
-/* Botão */
 .submit-btn {
     background: #000;
     color: #fff;
-    margin-top: 100px;
-    margin-left: 9.5vw;
+    margin-top: clamp(40px, 10vh, 100px);
+    margin-left: clamp(0px, 6vw, 120px);
     padding: 20px 45px;
-    font-size: 2.2vw;
+    font-size: clamp(1.2rem, 2.2vw, 2.2rem);
     cursor: pointer;
     transition: opacity 0.3s;
 }
@@ -824,24 +820,20 @@ body.contact-page {
     opacity: 0.8;
 }
 
-/* Informações de Texto */
 .info-item h3 {
-    font-size: 2.4rem;
+    font-size: clamp(1.3rem, 2.4vw, 2.4rem);
     margin-bottom: 10px;
 }
 
 .info-item p {
     color: #555;
-    
 }
 
-/* Ícones Sociais (Exemplo básico) */
 .social-icons {
     margin-top: auto;
     display: flex;
     gap: 20px;
-    font-size: 2.2rem;
-    
+    font-size: clamp(1.5rem, 2.2vw, 2.2rem);
 }
 
 .social-icons a {
@@ -849,22 +841,47 @@ body.contact-page {
     text-decoration: none;
 }
 
-/* Responsividade para Telas Menores */
+/* Responsividade para telas menores */
 @media (max-width: 900px) {
     .contact-content {
-        flex-direction: column;
+        min-height: auto;
+        overflow: visible;
+        padding-top: 120px;
     }
+
+    .contact-message-container {
+        position: relative;
+        top: auto;
+        left: auto;
+        max-width: none;
+        padding: 24px;
+    }
+
     .contact-card {
-        flex-direction: column;
+        position: relative;
         width: 100%;
+        min-width: 0;
+        height: auto;
+        flex-direction: column;
+        border-left: none;
+        padding: 24px;
+    }
+
+    .form-section,
+    .info-section {
+        padding: 0;
+    }
+
+    .submit-btn {
+        margin-left: 0;
     }
 }
 
 /* --- Carrossel Green Work --- */
 .carousel-container {
     position: relative;
-    width: 90vw;
-    height: 90vh;
+    width: min(90dvw, 1400px);
+    height: 90dvh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -887,7 +904,7 @@ body.contact-page {
     opacity: 0;
     transition: opacity 0.4s ease;
     pointer-events: none;
-    -webkit-user-drag: none; /* Impede o drag nativo do navegador */
+    -webkit-user-drag: none;
     user-select: none;
 }
 
@@ -895,7 +912,6 @@ body.contact-page {
     opacity: 1;
 }
 
-/* Só reativa o clique na imagem se o overlay principal estiver ativo */
 .video-overlay.active .carousel-img.active {
     pointer-events: auto;
 }
@@ -907,7 +923,7 @@ body.contact-page {
     background: rgba(255, 255, 255, 0.1);
     border: none;
     color: white;
-    font-size: 3rem;
+    font-size: clamp(2rem, 3vw, 3rem);
     padding: 15px 25px;
     cursor: pointer;
     z-index: 10;
@@ -919,10 +935,12 @@ body.contact-page {
     background: rgba(255, 255, 255, 0.4);
 }
 
-#carousel-prev, #yb-prev {
+#carousel-prev,
+#yb-prev {
     left: 20px;
 }
 
-#carousel-next, #yb-next {
+#carousel-next,
+#yb-next {
     right: 20px;
 }
