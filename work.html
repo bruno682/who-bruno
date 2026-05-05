@@ -65,32 +65,32 @@
         }
         
         .model-desc {
-            position: fixed;
-            top: 72%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: min(90%, 1400px);
-            display: flex;
-            align-items: flex-start;
-            gap: clamp(24px, 4vw, 50px);
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.5s ease;
-            z-index: 20;
-        }
+    position: fixed;
+    top: 72%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(90%, 1400px);
+    display: flex;
+    align-items: flex-start;
+    gap: clamp(24px, 4vw, 50px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+    z-index: 20;
+}
 
         .model-desc.active {
             opacity: 1;
         }
 
         .desc-image-placeholder,
-        .model-desc img {
-            width: min(58vw, 900px);
-            height: min(36vw, 550px);
-            min-height: 260px;
-            flex-shrink: 0;
-            object-fit: cover;
-        }
+.model-desc img {
+    width: min(58vw, 900px);
+    height: min(36vw, 550px);
+    min-height: 260px;
+    flex-shrink: 0;
+    object-fit: cover;
+}
 
         .desc-content {
             text-align: left;
@@ -100,23 +100,24 @@
         }
 
         body .model-desc h3,
-        body .desc-content h3 {
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
-            font-size: clamp(2.5rem, 5vw, 4.5rem);
-            margin: -5px 0 15px 0;
-            font-weight: 700;
-            text-transform: uppercase;
-            line-height: 0.9;
-            letter-spacing: 2px;
-        }
+body .desc-content h3 {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    margin: -5px 0 15px 0;
+    font-weight: 700;
+    text-transform: uppercase;
+    line-height: 0.9;
+    letter-spacing: 2px;
+}
+
 
         .desc-content p {
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            font-size: clamp(1.3rem, 2.6vw, 2.5rem);
-            line-height: 1.35;
-            width: min(500px, 100%);
-            margin: 0;
-        }
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: clamp(1.3rem, 2.6vw, 2.5rem);
+    line-height: 1.35;
+    width: min(500px, 100%);
+    margin: 0;
+}
 
         @media (max-width: 900px) {
             body {
