@@ -4,7 +4,7 @@
     left: 0;
     width: 100dvw;
     height: 100dvh;
-    padding: clamp(24px, 5vw, 80px);
+    padding: 70px;
     box-sizing: border-box;
     background-color: var(--text-color);
     transition: background-color 0.4s ease-in-out;
