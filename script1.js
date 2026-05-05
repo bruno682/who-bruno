@@ -239,7 +239,7 @@ function loadModelAsParticles(path, color, positionX, positionY = 0, rotationX =
 loadModelAsParticles('3D/Who Corrodit.glb', 0x000000, -3.4, 1, 0, 0, 0.8, 'CORRODIT', 'corrodit.html', -20, {
     title: 'CORRODIT',
     text: 'Spot lights made for exterior that transform corrosism in art.',
-    image: 'Imagens/corrodit 4.png'
+    image: 'Imagens/Corrodit 4.png'
 });
 loadModelAsParticles('3D/Who Breu.glb', 0x000000, -1.3, 1, Math.PI / 2, 4, 0.6, 'BREU', 'breu.html', 0, {
     title: 'BREU',
