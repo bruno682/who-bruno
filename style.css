@@ -612,8 +612,8 @@ a, button {
 .work-item {
     position: absolute;
     transform: translate(-50%, -50%);
-    width: clamp(240px, 34vw, 500px);
-    height: clamp(240px, 34vw, 500px);
+    width: clamp(220px, 30vw, 400px);
+    height: clamp(220px, 30vw, 400px);
     background-color: #ffffff;
     box-shadow: 0 10px 40px rgba(0,0,0,0.08);
     border-radius: 16px;
