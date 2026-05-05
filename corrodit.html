@@ -5,40 +5,180 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Corrodit</title>
     <link rel="stylesheet" href="style.css">
+
+    <style>
+        body.scrollable-page {
+            background-color: #ffffff;
+        }
+
+        .hero-bg {
+            position: relative;
+            width: 100%;
+            height: 100dvh;
+            overflow: hidden;
+        }
+
+        .hero-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .content-section {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-top: clamp(64px, 8vw, 100px);
+        }
+
+        .corrodit-description {
+            max-width: min(900px, calc(100% - 48px));
+            margin-left: clamp(24px, 5vw, 70px);
+            margin-top: clamp(120px, 25dvh, 260px);
+            margin-bottom: clamp(64px, 8vw, 100px);
+            text-align: left;
+            color: #000000;
+            font-size: clamp(1.5rem, 3.5vw, 4rem);
+            line-height: 1.15;
+        }
+
+        #corrodit-parque {
+            width: 100%;
+            height: auto;
+            display: block;
+            position: relative;
+            z-index: 1;
+            will-change: transform;
+        }
+
+        #carousel-wrapper {
+            position: relative;
+            z-index: 3;
+            height: 400dvh;
+            width: 100%;
+        }
+
+        .carousel-sticky {
+            position: sticky;
+            top: 0;
+            height: 100dvh;
+            width: 100%;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            background-color: transparent;
+        }
+
+        #carousel-bg {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100dvh;
+            object-fit: cover;
+            z-index: 0;
+            display: block;
+            transition: filter 0.1s ease-out;
+        }
+
+        #carousel-track {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            gap: clamp(20px, 3vw, 40px);
+            padding: 0 10dvw 0 100dvw;
+            will-change: transform;
+        }
+
+        #carousel-track img {
+            width: min(80dvw, 1200px);
+            max-height: 80dvh;
+            object-fit: contain;
+            flex-shrink: 0;
+            display: block;
+        }
+
+        #corrodit-logo {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: min(89dvw, 1500px);
+            z-index: 50;
+            will-change: transform;
+        }
+
+        .back-button {
+            position: fixed;
+            top: clamp(12px, 2vw, 24px);
+            left: clamp(12px, 2vw, 24px);
+            z-index: 100;
+            width: clamp(72px, 10vw, 150px);
+            height: clamp(72px, 10vw, 150px);
+            display: block;
+            cursor: pointer;
+        }
+
+        #logo-container {
+            width: 100%;
+            height: 100%;
+        }
+
+        @media (max-width: 900px) {
+            .corrodit-description {
+                max-width: calc(100% - 48px);
+                margin-top: 120px;
+                font-size: clamp(1.5rem, 8vw, 3.5rem);
+            }
+
+            #corrodit-logo {
+                width: 95dvw;
+            }
+
+            #carousel-track img {
+                width: 86dvw;
+                max-height: 70dvh;
+            }
+        }
+    </style>
 </head>
-<body class="scrollable-page" style="background-color: #ffffff;">
+
+<body class="scrollable-page">
     <!-- Fundo em tela cheia -->
-    <div style="position: relative; width: 100vw; height: 100vh; overflow: hidden;">
-        <img src="Elements/Corrodit fundo 1.png" alt="Corrodit Fundo" style="width: 100%; height: 100%; object-fit: cover;">
+    <div class="hero-bg">
+        <img src="Elements/Corrodit fundo 1.png" alt="Corrodit Fundo">
     </div>
 
-    <!-- Seção de Conteúdo (Scroll) -->
-    <div style="position: relative; z-index: 10; display: flex; flex-direction: column; justify-content: center; padding-top: 100px;">
-        <p class="about-text" style="max-width: 900px; margin-left: 70px; text-align: left; margin-top: 25vh; margin-bottom: 100px; color: #000000;">
+    <!-- Seção de Conteúdo -->
+    <div class="content-section">
+        <p class="about-text corrodit-description">
             Transform a problem that exist for centuries in a form of identity, a object that transcend the three dimensions and change thought time.
         </p>
-        <img id="corrodit-parque" src="Elements/Corrodit parque.png" alt="Corrodit Parque" style="width: 100%; height: auto; display: block; position: relative; z-index: 1;">
+
+        <img id="corrodit-parque" src="Elements/Corrodit parque.png" alt="Corrodit Parque">
 
         <!-- Wrapper do Carrossel para o Scroll Vertical -->
-        <div id="carousel-wrapper" style="position: relative; z-index: 3; height: 400vh; width: 100%;">
-            <div style="position: sticky; top: 0; height: 100vh; width: 100%; overflow: hidden; display: flex; align-items: center; background-color: transparent;">
-                <img id="carousel-bg" src="Elements/IMG_3710 1.png" alt="Corrodit IMG 3710" style="position: absolute; top: 0; left: 0; width: 100%; height: 100vh; object-fit: cover; z-index: 0; display: block; transition: filter 0.1s ease-out;">
-                <div id="carousel-track" style="position: relative; z-index: 1; display: flex; gap: 40px; padding: 0 10vw 0 100vw; will-change: transform;">
-                    <img src="Elements/Corrodit 3.png" alt="Corrodit 3" style="width: 80vw; max-height: 80vh; object-fit: contain; flex-shrink: 0; display: block;">
-                    <img src="Elements/Corrodit 4.png" alt="Corrodit 4" style="width: 80vw; max-height: 80vh; object-fit: contain; flex-shrink: 0; display: block;">
-                    <img src="Elements/Corrodit 5.png" alt="Corrodit 5" style="width: 80vw; max-height: 80vh; object-fit: contain; flex-shrink: 0; display: block;">
-                    <img src="Elements/Corrodit 6.png" alt="Corrodit 6" style="width: 80vw; max-height: 80vh; object-fit: contain; flex-shrink: 0; display: block;">
+        <div id="carousel-wrapper">
+            <div class="carousel-sticky">
+                <img id="carousel-bg" src="Elements/IMG_3710 1.png" alt="Corrodit IMG 3710">
+
+                <div id="carousel-track">
+                    <img src="Elements/Corrodit 3.png" alt="Corrodit 3">
+                    <img src="Elements/Corrodit 4.png" alt="Corrodit 4">
+                    <img src="Elements/Corrodit 5.png" alt="Corrodit 5">
+                    <img src="Elements/Corrodit 6.png" alt="Corrodit 6">
                 </div>
             </div>
         </div>
     </div>
 
     <!-- SVG no canto superior direito -->
-    <img id="corrodit-logo" src="Elements/CORRODIT.svg" alt="Corrodit Logo" style="position: fixed; top: 0; right: 0px; width: 89vw; z-index: 50;">
+    <img id="corrodit-logo" src="Elements/CORRODIT.svg" alt="Corrodit Logo">
 
     <!-- Botão de voltar com o logo 3D -->
-    <a href="menu.html" style="position: fixed; top: 0; left: 0; z-index: 100; width: 10vw; height: 10vw; display: block; cursor: pointer;">
-        <div id="logo-container" data-color="#222222" style="width: 100%; height: 100%;"></div>
+    <a href="menu.html" class="back-button">
+        <div id="logo-container" data-color="#222222"></div>
     </a>
 
     <!-- Import map para o Three.js -->
@@ -50,9 +190,9 @@
             }
         }
     </script>
+
     <script type="module" src="corrodit.js"></script>
     
-    <!-- Script para o efeito Parallax do Logo SVG e da Imagem -->
     <script>
         const corroditLogo = document.getElementById('corrodit-logo');
         const corroditParque = document.getElementById('corrodit-parque');
@@ -61,17 +201,16 @@
         const carouselBg = document.getElementById('carousel-bg');
 
         window.addEventListener('scroll', () => {
-            // Move o logo para cima com 50% da velocidade do scroll natural
-            corroditLogo.style.transform = `translateY(-${window.scrollY * 0.67}px)`;
-            
-            // Subtrai a altura da primeira tela para que a imagem não seja empurrada antes de aparecer
-            let scrollPassado = window.scrollY - window.innerHeight;
-            if (scrollPassado < 0) scrollPassado = 0;
-            
-            // Empurra a imagem levemente para baixo apenas a partir do momento em que chegamos na seção
-            corroditParque.style.transform = `translateY(${scrollPassado * 0.15}px)`;
-            
-            // --- Efeito do Carrossel (Scroll Vertical convertendo para Horizontal) ---
+            if (corroditLogo) {
+                corroditLogo.style.transform = `translateY(-${window.scrollY * 0.67}px)`;
+            }
+
+            if (corroditParque) {
+                let scrollPassado = window.scrollY - window.innerHeight;
+                if (scrollPassado < 0) scrollPassado = 0;
+                corroditParque.style.transform = `translateY(${scrollPassado * 0.15}px)`;
+            }
+
             if (carouselWrapper && carouselTrack) {
                 const rect = carouselWrapper.getBoundingClientRect();
                 const viewportHeight = window.innerHeight;
@@ -80,9 +219,9 @@
                 if (rect.top <= 0 && rect.top >= -scrollableHeight) {
                     const progress = Math.abs(rect.top) / scrollableHeight;
                     const maxScroll = carouselTrack.scrollWidth - window.innerWidth;
+
                     carouselTrack.style.transform = `translateX(-${progress * maxScroll}px)`;
                     
-                    // Escurece o fundo rapidamente (nos primeiros 20% do scroll do carrossel)
                     if (carouselBg) {
                         const darkProgress = Math.min(1, progress * 5); 
                         carouselBg.style.filter = `brightness(${1 - (0.7 * darkProgress)})`;
