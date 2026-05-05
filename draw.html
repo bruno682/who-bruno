@@ -243,7 +243,7 @@
             border: 1px solid #000;
             border-radius: 50%;
             pointer-events: none;
-            transform: translate(-40%, -40%);
+            transform: translate(-50%, -50%);
             display: none;
             z-index: 9999;
         }
@@ -569,7 +569,7 @@
         let brushSize = 0.06;
 
         function updateBrushCursorSize() {
-            const pixelSize = sizeInput.value * 15; /* Multiplicador aumentado para refletir melhor a área pintada */
+            const pixelSize = sizeInput.value * 10; /* Multiplicador aumentado para refletir melhor a área pintada */
             brushCursor.style.width = `${pixelSize}px`;
             brushCursor.style.height = `${pixelSize}px`;
         }
