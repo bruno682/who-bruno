@@ -4,98 +4,173 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Work</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=BBH+Bartle&family=Inter:wght@400;600;700&family=Pixelify+Sans:wght@400..700&family=Rubik+Glitch&display=swap" rel="stylesheet">
+
     <style>
-    .title-work {
-        position: absolute;
-        top: 80px;
-        left: 43vw;
-        font-family: 'Inter', sans-serif;
-        font-size: 49px;
-        font-weight: 520;
-        margin: 0;
-        z-index: 100;
-        color: #000;
-        line-height: 28px;
-    }
-    .model-label {
-        position: absolute;
-        color: #000000; /* Cor inicial branca */
-        font-family: 'Helvetica Neue', sans-serif; /* A fonte que você carregou */
-        font-size: 1.5rem;
-        font-weight: bold;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        transition: all 0.3s ease;
-        transform: translate(-50%, -50%);
-        pointer-events: none;
-        z-index: 5;
-    }
-    
-.model-desc {
-    position: fixed;
-    top: 75%; /* Centraliza o bloco verticalmente em relação à metade inferior */
-    left: 45%;
-    transform: translate(-50%, -50%);
-    width: 90%;
-    max-width: 1100px;
-    display: flex;
-    align-items: flex-start; /* Alinha o bloco de texto ao topo da imagem */
-    gap: 50px;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.5s ease;
-    z-index: 20;
-}
-.model-desc.active {
-    opacity: 1;
-}
+        body {
+            margin: 0;
+            min-height: 100dvh;
+            overflow: hidden;
+            background: #ffffff;
+            font-family: 'Inter', sans-serif;
+        }
 
-/* O retângulo da imagem (Placeholder e a Imagem real) */
-.desc-image-placeholder, .model-desc img {
-    width: 900px;  /* Aumentado de 450px */
-    height: 550px; /* Aumentado de 250px */
-    flex-shrink: 0;
-    object-fit: cover;
-}
+        .back-button {
+            position: fixed;
+            top: clamp(12px, 2vw, 24px);
+            left: clamp(12px, 2vw, 24px);
+            z-index: 100;
+            width: clamp(80px, 13vw, 250px);
+            height: clamp(80px, 13vw, 250px);
+            display: block;
+            cursor: pointer;
+        }
 
-.desc-content {
-    text-align: left;
-    color: #000;
-}
+        #logo-container {
+            width: 100%;
+            height: 100%;
+        }
 
-/* Aumentada a especificidade para evitar sobreposição do style.css */
-body .model-desc h3,
-body .desc-content h3 {
-    font-family: 'Helvetica Neue', sans-serif !important; /* Nova tipografia importada no <head> */
-    font-size: 4.5rem; 
-    margin: -5px 0 15px 0; /* Ajuste fino para alinhar perfeitamente ao topo */
-    font-weight: 700;
-    text-transform: uppercase;
-    line-height: 0.9;
-    letter-spacing: 2px; 
-}
+        .title-work {
+            position: absolute;
+            top: clamp(40px, 7vw, 80px);
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(1.8rem, 3.4vw, 49px);
+            font-weight: 600;
+            margin: 0;
+            z-index: 100;
+            color: #000;
+            line-height: 1;
+            white-space: nowrap;
+            text-align: center;
+        }
 
-.desc-content p {
-    font-family: 'Helvetica Neue', sans-serif;
-    font-size: 2.5rem; /* Aumentado de 1.2rem */
-    line-height: 1.4;
-    width: 500px; /* Largura fixa para não depender da largura do título maior */
-}
+        .model-label {
+            position: absolute;
+            color: #000000;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: clamp(1rem, 1.5vw, 1.5rem);
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 5;
+        }
+        
+        .model-desc {
+            position: fixed;
+            top: 72%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: min(90%, 1400px);
+            display: flex;
+            align-items: flex-start;
+            gap: clamp(24px, 4vw, 50px);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+            z-index: 20;
+        }
 
-/* Quando o mouse estiver sobre o modelo (hover) */
-/* Remova o "filter: brightness(0) invert(1)" do JS se for usar cor via CSS */
+        .model-desc.active {
+            opacity: 1;
+        }
+
+        .desc-image-placeholder,
+        .model-desc img {
+            width: min(58vw, 900px);
+            height: min(36vw, 550px);
+            min-height: 260px;
+            flex-shrink: 0;
+            object-fit: cover;
+        }
+
+        .desc-content {
+            text-align: left;
+            color: #000;
+            flex: 1;
+            min-width: 260px;
+        }
+
+        body .model-desc h3,
+        body .desc-content h3 {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            margin: -5px 0 15px 0;
+            font-weight: 700;
+            text-transform: uppercase;
+            line-height: 0.9;
+            letter-spacing: 2px;
+        }
+
+        .desc-content p {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: clamp(1.3rem, 2.6vw, 2.5rem);
+            line-height: 1.35;
+            width: min(500px, 100%);
+            margin: 0;
+        }
+
+        @media (max-width: 900px) {
+            body {
+                overflow: auto;
+            }
+
+            .back-button {
+                width: 72px;
+                height: 72px;
+            }
+
+            .title-work {
+                top: 32px;
+                font-size: clamp(1.5rem, 6vw, 2.5rem);
+            }
+
+            .model-desc {
+                top: auto;
+                bottom: 24px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: calc(100% - 32px);
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .desc-image-placeholder,
+            .model-desc img {
+                width: 100%;
+                height: 260px;
+                min-height: 0;
+            }
+
+            body .model-desc h3,
+            body .desc-content h3 {
+                font-size: clamp(2rem, 10vw, 3rem);
+            }
+
+            .desc-content p {
+                font-size: clamp(1rem, 5vw, 1.4rem);
+            }
+        }
     </style>
 </head>
+
 <body>
     <!-- Botão de voltar com o logo 3D -->
-    <a href="menu.html" style="position: fixed; z-index: 100; width: 250px; height: 250px; display: block; cursor: pointer;">
-        <div id="logo-container" data-color="#222222" style="width: 100%; height: 100%;"></div>
+    <a href="menu.html" class="back-button">
+        <div id="logo-container" data-color="#222222"></div>
     </a>
+
     <h1 class="title-work">THATS MY WORK</h1>
-    <!-- Import map necessário para o Three.js funcionar nativamente no navegador (pois não há bundler) -->
+
+    <!-- Import map necessário para o Three.js funcionar nativamente no navegador -->
     <script type="importmap">
         {
             "imports": {
@@ -106,7 +181,6 @@ body .desc-content h3 {
     </script>
     
     <script type="module" src="corrodit.js"></script>
-    <!-- Linkando a página work.html ao script.js -->
     <script type="module" src="script1.js"></script>
 </body>
 </html>
