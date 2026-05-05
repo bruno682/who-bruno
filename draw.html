@@ -5,18 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Draw - Who is Bruno?</title>
 
-    <!-- Biblioteca para criar um Color Picker Customizado e Grande -->
     <script src="https://cdn.jsdelivr.net/npm/@jaames/iro@5"></script>
+
     <style>
         body { 
             margin: 0; 
             overflow: hidden; 
             background-color: #ffffff; 
+            font-family: Arial, Helvetica, sans-serif;
         }
 
         #draw-container { 
-            width: 100vw; 
-            height: 100vh; 
+            width: 100dvw; 
+            height: 100dvh; 
             cursor: grab; 
         }
 
@@ -24,9 +25,91 @@
             cursor: grabbing; 
         }
 
+        .back-button {
+            position: fixed;
+            top: clamp(16px, 3vw, 30px);
+            left: clamp(18px, 4vw, 40px);
+            z-index: 120;
+            width: clamp(64px, 9vw, 130px);
+            height: clamp(64px, 9vw, 130px);
+            display: block;
+            cursor: pointer;
+        }
+
+        #logo-container {
+            width: 100%;
+            height: 100%;
+        }
+
+        .tool-panel {
+            position: fixed;
+            top: 50%;
+            left: clamp(18px, 3vw, 40px);
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: clamp(14px, 2.2vh, 30px);
+            align-items: center;
+        }
+
+        .tool-wrap {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .tool-btn {
+            padding: clamp(12px, 1.4vw, 20px) clamp(22px, 3vw, 40px);
+            font-size: clamp(0.85rem, 1.2vw, 1.2rem);
+            font-family: sans-serif;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 50px;
+            letter-spacing: 2px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+
+        .tool-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .tool-btn.dark {
+            background: #000;
+            color: #fff;
+            border: none;
+        }
+
+        .tool-btn.light {
+            background: #fff;
+            color: #000;
+            border: 2px solid #000;
+        }
+
+        .tooltip {
+            position: absolute;
+            left: calc(100% + 20px);
+            background: #ffffff;
+            color: #000000;
+            border: 2px solid #000;
+            padding: 10px 15px;
+            border-radius: 10px;
+            font-family: sans-serif;
+            font-size: clamp(0.75rem, 1vw, 0.9rem);
+            font-weight: bold;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+            transform: translateX(-10px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
         #color-picker-btn {
-            width: 70px;
-            height: 70px;
+            width: clamp(54px, 5vw, 70px);
+            height: clamp(54px, 5vw, 70px);
             background-color: #000000;
             border: 3px solid #fff;
             box-shadow: 0 0 0 2px #000, 0 10px 30px rgba(0,0,0,0.3);
@@ -44,10 +127,10 @@
             display: none;
             position: fixed;
             top: 50%;
-            left: 150px;
+            left: clamp(100px, 12vw, 150px);
             transform: translateY(-50%);
             background: #ffffff;
-            padding: 25px;
+            padding: clamp(18px, 2vw, 25px);
             border-radius: 20px;
             border: 2px solid #000;
             box-shadow: 0 15px 40px rgba(0,0,0,0.4);
@@ -57,7 +140,94 @@
             gap: 15px;
         }
 
-        /* Remove as setinhas padrão do input number */
+        .popup-title {
+            font-family: sans-serif;
+            font-size: clamp(1rem, 1.4vw, 1.2rem);
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #000;
+            letter-spacing: 1px;
+        }
+
+        .popup-actions {
+            display: flex;
+            gap: 10px;
+            width: 100%;
+        }
+
+        #eyedropper-btn {
+            width: 45px;
+            height: 45px;
+            background: #fff;
+            color: #000;
+            border: 2px solid #000;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.2s ease;
+        }
+
+        #close-color-popup {
+            flex: 1;
+            padding: 10px 20px;
+            font-size: 1rem;
+            font-family: sans-serif;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            background: #000;
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+        }
+
+        #size-container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #fff;
+            padding: clamp(18px, 2vw, 25px) clamp(12px, 1.5vw, 15px);
+            border-radius: 50px;
+            border: 2px solid #000;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            box-sizing: border-box;
+        }
+
+        .size-title {
+            font-family: sans-serif;
+            font-size: clamp(0.9rem, 1.4vw, 1.2rem);
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #000;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        #size-slider {
+            cursor: pointer;
+            height: clamp(90px, 13vh, 120px);
+            width: 20px;
+            margin: 10px 0;
+            -webkit-appearance: slider-vertical;
+            appearance: slider-vertical;
+        }
+
+        #size-input {
+            width: 45px;
+            margin-top: 8px;
+            text-align: center;
+            font-family: sans-serif;
+            font-size: clamp(1.2rem, 2vw, 1.5rem);
+            font-weight: bold;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+        }
+
         input[type=number]::-webkit-inner-spin-button, 
         input[type=number]::-webkit-outer-spin-button { 
             -webkit-appearance: none; 
@@ -65,7 +235,6 @@
             margin: 0; 
         }
 
-        /* Remove as setinhas no Firefox e aplica o padrão correto */
         input[type=number] {
             -moz-appearance: textfield;
             appearance: textfield;
@@ -80,688 +249,144 @@
             display: none;
             z-index: 9999;
         }
+
+        #undo-btn {
+            padding: clamp(10px, 1.2vw, 15px) clamp(20px, 2.2vw, 30px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #undo-btn svg {
+            width: clamp(24px, 3vw, 30px);
+            height: auto;
+        }
+
+        @media (max-width: 800px) {
+            .tool-panel {
+                top: auto;
+                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                flex-direction: row;
+                gap: 10px;
+                max-width: calc(100% - 32px);
+                overflow-x: auto;
+                padding: 8px;
+            }
+
+            .tool-btn {
+                padding: 12px 20px;
+                font-size: 0.8rem;
+                white-space: nowrap;
+            }
+
+            #size-container {
+                flex-direction: row;
+                padding: 12px 16px;
+                gap: 8px;
+            }
+
+            #size-slider {
+                width: 90px;
+                height: 20px;
+                -webkit-appearance: auto;
+                appearance: auto;
+            }
+
+            .tooltip,
+            #shortcut-tooltip,
+            #color-picker-tooltip,
+            #eyedropper-tooltip,
+            #size-tooltip,
+            #undo-tooltip,
+            #reset-tooltip,
+            #save-tooltip {
+                display: none;
+            }
+
+            #custom-color-popup {
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+            .back-button {
+                width: 72px;
+                height: 72px;
+            }
+        }
     </style>
 </head>
 
 <body>
 
     <div id="brush-cursor"></div>
-    <!-- Botões de Pintura e Reinício -->
-    <div style="position: fixed; top: 50%; left: 40px; transform: translateY(-50%); z-index: 100; display: flex; flex-direction: column; gap: 30px; align-items: center;">
+
+    <!-- Painel de ferramentas -->
+    <div class="tool-panel">
         
-        <div style="position: relative; display: flex; align-items: center;">
-            <button id="paint-btn" style="padding: 20px 40px; font-size: 1.2rem; font-family: sans-serif; font-weight: bold; text-transform: uppercase; cursor: pointer; background: #000; color: #fff; border: none; border-radius: 50px; letter-spacing: 2px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); transition: transform 0.2s ease;">
-                Move
-            </button>
-            <div id="shortcut-tooltip" style="position: absolute; left: calc(100% + 20px); background: #ffffff; color: #000000; border: 2px solid #000; padding: 10px 15px; border-radius: 10px; font-family: sans-serif; font-size: 0.9rem; font-weight: bold; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.2s ease, transform 0.2s ease; transform: translateX(-10px); box-shadow: 0 5px 15px rgba(0,0,0,0.2);">
-                Shortcut: M
-            </div>
+        <div class="tool-wrap">
+            <button id="paint-btn" class="tool-btn dark">Move</button>
+            <div id="shortcut-tooltip" class="tooltip">Shortcut: M</div>
         </div>
 
-        <!-- Novo Botão de Cor Customizado -->
-        <div style="position: relative; display: flex; align-items: center;">
+        <div class="tool-wrap">
             <button id="color-picker-btn" title="Escolha uma cor"></button>
-            <div id="color-picker-tooltip" style="position: absolute; left: calc(100% + 20px); background: #ffffff; color: #000000; border: 2px solid #000; padding: 10px 15px; border-radius: 10px; font-family: sans-serif; font-size: 0.9rem; font-weight: bold; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.2s ease, transform 0.2s ease; transform: translateX(-10px); box-shadow: 0 5px 15px rgba(0,0,0,0.2);">
-                Shortcut: C
-            </div>
+            <div id="color-picker-tooltip" class="tooltip">Shortcut: C</div>
         </div>
 
-        <!-- Pop-up Gigante Customizado -->
         <div id="custom-color-popup">
-            <span style="font-family: sans-serif; font-size: 1.2rem; font-weight: bold; text-transform: uppercase; color: #000; letter-spacing: 1px;">Color</span>
+            <span class="popup-title">Color</span>
             <div id="color-wheel"></div>
             
-            <div style="display: flex; gap: 10px; width: 100%;">
-                <!-- Botão Conta Gotas (agora dentro do pop-up) -->
-                <div style="position: relative; display: flex; align-items: center;">
-                    <button id="eyedropper-btn" style="width: 45px; height: 45px; background: #fff; color: #000; border: 2px solid #000; border-radius: 50%; cursor: pointer; display: flex; justify-content: center; align-items: center; transition: transform 0.2s ease;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m2 22 1-1h3l9-9"/><path d="M3 21v-3l9-9"/><path d="m15 6 3.4-3.4a2.1 2.1 0 1 1 3 3L18 9l.4.4a2.1 2.1 0 1 1-3 3l-3.8-3.8a2.1 2.1 0 1 1 3-3l.4.4Z"/></svg>
+            <div class="popup-actions">
+                <div class="tool-wrap">
+                    <button id="eyedropper-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="m2 22 1-1h3l9-9"/>
+                            <path d="M3 21v-3l9-9"/>
+                            <path d="m15 6 3.4-3.4a2.1 2.1 0 1 1 3 3L18 9l.4.4a2.1 2.1 0 1 1-3 3l-3.8-3.8a2.1 2.1 0 1 1 3-3l.4.4Z"/>
+                        </svg>
                     </button>
-                    <div id="eyedropper-tooltip" style="position: absolute; left: calc(100% + 10px); background: #ffffff; color: #000000; border: 2px solid #000; padding: 5px 10px; border-radius: 8px; font-family: sans-serif; font-size: 0.8rem; font-weight: bold; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.2s ease, transform 0.2s ease; transform: translateX(-5px); box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
-                        Shortcut: I
-                    </div>
+                    <div id="eyedropper-tooltip" class="tooltip">Shortcut: I</div>
                 </div>
-                <button id="close-color-popup" style="flex: 1; padding: 10px 20px; font-size: 1rem; font-family: sans-serif; font-weight: bold; text-transform: uppercase; cursor: pointer; background: #000; color: #fff; border: none; border-radius: 50px;">Close</button>
+
+                <button id="close-color-popup">Close</button>
             </div>
         </div>
 
-        <!-- Novo controle de tamanho (Slider) -->
-        <div id="size-container" style="position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #fff; padding: 25px 15px; border-radius: 50px; border: 2px solid #000; box-shadow: 0 10px 30px rgba(0,0,0,0.3); box-sizing: border-box;">
-            <span style="font-family: sans-serif; font-size: 1.2rem; font-weight: bold; text-transform: uppercase; color: #000; letter-spacing: 1px; margin-bottom: 5px;">Size</span>
-            <input type="range" id="size-slider" orient="vertical" min="0.01" max="0.2" step="0.01" value="0.06" style="cursor: pointer; height: 120px; width: 20px; margin: 10px 0; -webkit-appearance: slider-vertical; appearance: slider-vertical;">
-            <input type="number" id="size-input" min="1" max="20" value="6" style="width: 45px; margin-top: 8px; text-align: center; font-family: sans-serif; font-size: 1.5rem; font-weight: bold; border: 1px solid #ccc; border-radius: 5px; outline: none;">
-            <div id="size-tooltip" style="position: absolute; left: calc(100% + 20px); background: #ffffff; color: #000000; border: 2px solid #000; padding: 10px 15px; border-radius: 10px; font-family: sans-serif; font-size: 0.9rem; font-weight: bold; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.2s ease, transform 0.2s ease; transform: translateX(-10px); box-shadow: 0 5px 15px rgba(0,0,0,0.2);">
-                Shortcut: 1 (-) / 2 (+)
-            </div>
+        <div id="size-container">
+            <span class="size-title">Size</span>
+            <input type="range" id="size-slider" orient="vertical" min="0.01" max="0.2" step="0.01" value="0.06">
+            <input type="number" id="size-input" min="1" max="20" value="6">
+            <div id="size-tooltip" class="tooltip">Shortcut: 1 (-) / 2 (+)</div>
         </div>
 
-        <!-- Botão de Desfazer -->
-        <div style="position: relative; display: flex; align-items: center;">
-            <button id="undo-btn" style="padding: 15px 30px; display: flex; align-items: center; justify-content: center; cursor: pointer; background: #fff; color: #000; border: 2px solid #000; border-radius: 50px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); transition: transform 0.2s ease;">
+        <div class="tool-wrap">
+            <button id="undo-btn" class="tool-btn light">
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="25" viewBox="0 0 190 158" fill="none">
                     <path d="M12.6816 43.5H127.432C156.565 43.5 180.182 67.117 180.182 96.25C180.182 125.383 156.565 149 127.432 149H86.1816M12.6816 43.5L46.6816 77.5M12.6816 43.5L46.6816 9" stroke="black" stroke-width="18" stroke-linecap="round"/>
                 </svg>
             </button>
-            <div id="undo-tooltip" style="position: absolute; left: calc(100% + 20px); background: #ffffff; color: #000000; border: 2px solid #000; padding: 10px 15px; border-radius: 10px; font-family: sans-serif; font-size: 0.9rem; font-weight: bold; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.2s ease, transform 0.2s ease; transform: translateX(-10px); box-shadow: 0 5px 15px rgba(0,0,0,0.2);">
-                Shortcut: Ctrl+Z / ⌘Z
-            </div>
+            <div id="undo-tooltip" class="tooltip">Shortcut: Ctrl+Z / ⌘Z</div>
         </div>
 
-        <div style="position: relative; display: flex; align-items: center;">
-            <button id="reset-btn" style="padding: 20px 40px; font-size: 1.2rem; font-family: sans-serif; font-weight: bold; text-transform: uppercase; cursor: pointer; background: #fff; color: #000; border: 2px solid #000; border-radius: 50px; letter-spacing: 2px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); transition: transform 0.2s ease;">
-                Reset
-            </button>
-            <div id="reset-tooltip" style="position: absolute; left: calc(100% + 20px); background: #ffffff; color: #000000; border: 2px solid #000; padding: 10px 15px; border-radius: 10px; font-family: sans-serif; font-size: 0.9rem; font-weight: bold; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.2s ease, transform 0.2s ease; transform: translateX(-10px); box-shadow: 0 5px 15px rgba(0,0,0,0.2);">
-                Shortcut: Del
-            </div>
+        <div class="tool-wrap">
+            <button id="reset-btn" class="tool-btn light">Reset</button>
+            <div id="reset-tooltip" class="tooltip">Shortcut: Del</div>
         </div>
 
-        <!-- Botão de Salvar Imagem -->
-        <div style="position: relative; display: flex; align-items: center;">
-            <button id="save-btn" style="padding: 20px 40px; font-size: 1.2rem; font-family: sans-serif; font-weight: bold; text-transform: uppercase; cursor: pointer; background: #fff; color: #000; border: 2px solid #000; border-radius: 50px; letter-spacing: 2px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); transition: transform 0.2s ease;">
-                Save
-            </button>
-            <div id="save-tooltip" style="position: absolute; left: calc(100% + 20px); background: #ffffff; color: #000000; border: 2px solid #000; padding: 10px 15px; border-radius: 10px; font-family: sans-serif; font-size: 0.9rem; font-weight: bold; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.2s ease, transform 0.2s ease; transform: translateX(-10px); box-shadow: 0 5px 15px rgba(0,0,0,0.2);">
-                Shortcut: S
-            </div>
+        <div class="tool-wrap">
+            <button id="save-btn" class="tool-btn light">Save</button>
+            <div id="save-tooltip" class="tooltip">Shortcut: S</div>
         </div>
     </div>
 
     <!-- Botão de Voltar 3D -->
-    <a href="life.html" style="position: fixed; top: 30px; left: 40px; z-index: 100; width: 9vw; height: 9vw; display: block; cursor: pointer;">
-        <div id="logo-container" data-color="#222222" style="width: 100%; height: 100%;"></div>
+    <a href="life.html" class="back-button">
+        <div id="logo-container" data-color="#222222"></div>
     </a>
 
     <!-- Container do modelo grande -->
     <div id="draw-container"></div>
-
-    <script type="importmap">
-        {
-            "imports": {
-                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
-                "three/examples/jsm/loaders/GLTFLoader": "https://unpkg.com/three@0.160.0/examples/jsm/loaders/GLTFLoader.js",
-                "three/examples/jsm/controls/OrbitControls": "https://unpkg.com/three@0.160.0/examples/jsm/controls/OrbitControls.js",
-                "three/examples/jsm/geometries/DecalGeometry": "https://unpkg.com/three@0.160.0/examples/jsm/geometries/DecalGeometry.js"
-            }
-        }
-    </script>
-
-    <!-- Logo 3D do botão de voltar -->
-    <script type="module" src="corrodit.js"></script>
-
-    <script type="module">
-        import * as THREE from 'three';
-        import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-        import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-        import { DecalGeometry } from 'three/examples/jsm/geometries/DecalGeometry';
-
-        const container = document.getElementById('draw-container');
-
-        const scene = new THREE.Scene();
-
-        const camera = new THREE.PerspectiveCamera(
-            45,
-            window.innerWidth / window.innerHeight,
-            0.1,
-            1000
-        );
-
-        const renderer = new THREE.WebGLRenderer({
-            antialias: true,
-            alpha: true,
-            preserveDrawingBuffer: true /* Necessário para conseguir exportar a imagem do canvas depois */
-        });
-
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1)); /* Limitado para priorizar o desempenho */
-        container.appendChild(renderer.domElement);
-
-        const controls = new OrbitControls(camera, renderer.domElement);
-        controls.enableDamping = true;
-        controls.autoRotate = false;
-        controls.enabled = false; /* Inicia com os controles desativados para permitir o desenho */
-
-        scene.add(new THREE.AmbientLight(0xffffff, 1.2));
-
-        const directionalLight = new THREE.DirectionalLight(0xffffff, 1.5);
-        directionalLight.position.set(10, 10, 10);
-        scene.add(directionalLight);
-
-        const fillLight = new THREE.DirectionalLight(0xffffff, 0.5);
-        fillLight.position.set(-10, -5, -10);
-        scene.add(fillLight);
-
-        const loader = new GLTFLoader();
-
-        const paintBtn = document.getElementById('paint-btn');
-        const resetBtn = document.getElementById('reset-btn');
-        const sizeSlider = document.getElementById('size-slider');
-        const sizeInput = document.getElementById('size-input');
-        const shortcutTooltip = document.getElementById('shortcut-tooltip');
-        const undoBtn = document.getElementById('undo-btn');
-        const undoTooltip = document.getElementById('undo-tooltip');
-        const eyedropperBtn = document.getElementById('eyedropper-btn');
-        const eyedropperTooltip = document.getElementById('eyedropper-tooltip');
-        const sizeContainer = document.getElementById('size-container');
-        const sizeTooltip = document.getElementById('size-tooltip');
-        const resetTooltip = document.getElementById('reset-tooltip');
-        const saveBtn = document.getElementById('save-btn');
-        const saveTooltip = document.getElementById('save-tooltip');
-        const brushCursor = document.getElementById('brush-cursor');
-
-        paintBtn.addEventListener('mouseenter', () => {
-            shortcutTooltip.style.opacity = '1';
-            shortcutTooltip.style.transform = 'translateX(0)';
-        });
-
-        paintBtn.addEventListener('mouseleave', () => {
-            shortcutTooltip.style.opacity = '0';
-            shortcutTooltip.style.transform = 'translateX(-10px)';
-        });
-
-        undoBtn.addEventListener('mouseenter', () => {
-            undoTooltip.style.opacity = '1';
-            undoTooltip.style.transform = 'translateX(0)';
-        });
-
-        undoBtn.addEventListener('mouseleave', () => {
-            undoTooltip.style.opacity = '0';
-            undoTooltip.style.transform = 'translateX(-10px)';
-        });
-
-        sizeContainer.addEventListener('mouseenter', () => {
-            sizeTooltip.style.opacity = '1';
-            sizeTooltip.style.transform = 'translateX(0)';
-        });
-
-        sizeContainer.addEventListener('mouseleave', () => {
-            sizeTooltip.style.opacity = '0';
-            sizeTooltip.style.transform = 'translateX(-10px)';
-        });
-
-        resetBtn.addEventListener('mouseenter', () => {
-            resetTooltip.style.opacity = '1';
-            resetTooltip.style.transform = 'translateX(0)';
-        });
-
-        resetBtn.addEventListener('mouseleave', () => {
-            resetTooltip.style.opacity = '0';
-            resetTooltip.style.transform = 'translateX(-10px)';
-        });
-
-        saveBtn.addEventListener('mouseenter', () => {
-            saveTooltip.style.opacity = '1';
-            saveTooltip.style.transform = 'translateX(0)';
-        });
-
-        saveBtn.addEventListener('mouseleave', () => {
-            saveTooltip.style.opacity = '0';
-            saveTooltip.style.transform = 'translateX(-10px)';
-        });
-
-        // Configuração do Conta-Gotas
-        if (window.EyeDropper) {
-            eyedropperBtn.addEventListener('mouseenter', () => {
-                eyedropperTooltip.style.opacity = '1';
-                eyedropperTooltip.style.transform = 'translateX(0)';
-            });
-
-            eyedropperBtn.addEventListener('mouseleave', () => {
-                eyedropperTooltip.style.opacity = '0';
-                eyedropperTooltip.style.transform = 'translateX(-10px)';
-            });
-
-            eyedropperBtn.addEventListener('click', async () => {
-                const eyeDropper = new EyeDropper();
-                try {
-                    const result = await eyeDropper.open();
-                    currentColor = result.sRGBHex;
-                    colorPickerBtn.style.backgroundColor = currentColor;
-                    iroPicker.color.hexString = currentColor;
-                    updateDecalMaterial();
-                } catch (e) {
-                    console.log("Conta-gotas cancelado.");
-                }
-            });
-        } else {
-            eyedropperBtn.parentElement.style.display = 'none'; // Esconde se o navegador não suportar a API
-        }
-
-        let isPaintMode = true;
-        let isPainting = false;
-        let loadedModel = null;
-
-        const meshes = [];
-        const decals = [];
-        const strokes = []; // Armazena os traços para a funcionalidade de "Desfazer"
-
-        container.style.cursor = 'none';
-        brushCursor.style.display = 'block';
-
-        const raycaster = new THREE.Raycaster();
-        const mouse = new THREE.Vector2();
-
-        const decalHelper = new THREE.Object3D();
-
-        let lastPointer = null;
-
-        let brushSize = 0.06;
-
-        function updateBrushCursorSize() {
-            const pixelSize = sizeInput.value * 15; /* Multiplicador aumentado para refletir melhor a área pintada */
-            brushCursor.style.width = `${pixelSize}px`;
-            brushCursor.style.height = `${pixelSize}px`;
-        }
-
-        sizeSlider.addEventListener('input', (e) => {
-            brushSize = parseFloat(e.target.value);
-            sizeInput.value = Math.round(brushSize * 100);
-            updateBrushCursorSize();
-        });
-
-        // Atualiza a barra de rolagem e o pincel enquanto o usuário digita
-        sizeInput.addEventListener('input', (e) => {
-            let val = parseInt(e.target.value);
-            if (!isNaN(val)) {
-                brushSize = val / 100;
-                sizeSlider.value = brushSize;
-                updateBrushCursorSize();
-            }
-        });
-
-        // Garante que o valor não passe do limite ao finalizar a digitação (clicar fora)
-        sizeInput.addEventListener('change', (e) => {
-            let val = parseInt(e.target.value);
-            if (isNaN(val) || val < 1) val = 1;
-            if (val > 20) val = 20;
-            e.target.value = val;
-            brushSize = val / 100;
-            sizeSlider.value = brushSize;
-            updateBrushCursorSize();
-        });
-
-        function createBrushTexture() {
-            const size = 128;
-            const canvas = document.createElement('canvas');
-            canvas.width = size;
-            canvas.height = size;
-
-            const ctx = canvas.getContext('2d');
-
-            ctx.clearRect(0, 0, size, size);
-
-            const gradient = ctx.createRadialGradient(
-                size / 2,
-                size / 2,
-                0,
-                size / 2,
-                size / 2,
-                size / 2
-            );
-
-            gradient.addColorStop(0, 'rgba(255,255,255,1)');
-            gradient.addColorStop(0.65, 'rgba(255,255,255,1)');
-            gradient.addColorStop(1, 'rgba(255,255,255,0)');
-
-            ctx.fillStyle = gradient;
-            ctx.beginPath();
-            ctx.arc(size / 2, size / 2, size / 2, 0, Math.PI * 2);
-            ctx.fill();
-
-            const texture = new THREE.CanvasTexture(canvas);
-            texture.needsUpdate = true;
-
-            return texture;
-        }
-
-        const brushAlphaTexture = createBrushTexture();
-
-        function updateMouseFromEvent(event) {
-            const rect = renderer.domElement.getBoundingClientRect();
-
-            mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
-            mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
-        }
-
-        function getHitFromClientPosition(clientX, clientY) {
-            const rect = renderer.domElement.getBoundingClientRect();
-
-            mouse.x = ((clientX - rect.left) / rect.width) * 2 - 1;
-            mouse.y = -((clientY - rect.top) / rect.height) * 2 + 1;
-
-            raycaster.setFromCamera(mouse, camera);
-
-            const intersects = raycaster.intersectObjects(meshes, false);
-
-            if (intersects.length > 0) {
-                return intersects[0];
-            }
-
-            return null;
-        }
-
-        const colorPickerBtn = document.getElementById('color-picker-btn');
-        const colorPopup = document.getElementById('custom-color-popup');
-        const closeColorPopup = document.getElementById('close-color-popup');
-        const colorPickerTooltip = document.getElementById('color-picker-tooltip');
-        
-        let currentColor = "#000000";
-
-        colorPickerBtn.addEventListener('mouseenter', () => {
-            colorPickerTooltip.style.opacity = '1';
-            colorPickerTooltip.style.transform = 'translateX(0)';
-        });
-
-        colorPickerBtn.addEventListener('mouseleave', () => {
-            colorPickerTooltip.style.opacity = '0';
-            colorPickerTooltip.style.transform = 'translateX(-10px)';
-        });
-
-        // Inicializa o Pop-up Gigante de Cor (iro.js)
-        const iroPicker = new iro.ColorPicker("#color-wheel", {
-            width: 250, // TAMANHO DA PALETA (aqui você pode aumentar ainda mais se quiser)
-            color: currentColor,
-            borderWidth: 2,
-            borderColor: "#000"
-        });
-
-        colorPickerBtn.addEventListener('click', () => {
-            colorPopup.style.display = colorPopup.style.display === 'flex' ? 'none' : 'flex';
-        });
-
-        closeColorPopup.addEventListener('click', () => {
-            colorPopup.style.display = 'none';
-        });
-
-        iroPicker.on('color:change', function(color) {
-            currentColor = color.hexString;
-            colorPickerBtn.style.backgroundColor = currentColor;
-            updateDecalMaterial();
-        });
-
-        let decalMaterial = null;
-
-        function updateDecalMaterial() {
-            decalMaterial = new THREE.MeshStandardMaterial({
-                color: currentColor,
-        transparent: true,
-        opacity: 1,
-        alphaMap: brushAlphaTexture,
-        depthTest: true,
-        depthWrite: false,
-        polygonOffset: true,
-        polygonOffsetFactor: -10,
-        side: THREE.DoubleSide,
-        roughness: 0.9,
-        metalness: 0
-    });
-}
-
-updateDecalMaterial();
-
-        function paintDecal(hit) {
-            if (!hit || !hit.face || !hit.object) return;
-
-            const normal = hit.face.normal.clone();
-            normal.transformDirection(hit.object.matrixWorld);
-
-            const position = hit.point.clone().add(
-                normal.clone().multiplyScalar(0.004)
-            );
-
-            decalHelper.position.copy(position);
-            decalHelper.lookAt(position.clone().add(normal));
-
-            const orientation = decalHelper.rotation.clone();
-
-            const randomRotation = Math.random() * Math.PI * 2;
-            orientation.z = randomRotation;
-
-            const size = new THREE.Vector3(
-                brushSize,
-                brushSize,
-                brushSize
-            );
-
-            const geometry = new DecalGeometry(
-                hit.object,
-                position,
-                orientation,
-                size
-            );
-
-            const decal = new THREE.Mesh(geometry, decalMaterial.clone());
-            decal.renderOrder = decals.length; /* Força o traço novo a sempre renderizar por cima dos antigos */
-
-            scene.add(decal);
-            decals.push(decal);
-            if (strokes.length > 0 && isPainting) {
-                strokes[strokes.length - 1].push(decal);
-            }
-        }
-
-        function paintAt(clientX, clientY) {
-            const hit = getHitFromClientPosition(clientX, clientY);
-
-            if (hit) {
-                paintDecal(hit);
-            }
-        }
-
-        function paintStroke(from, to) {
-            const dx = to.x - from.x;
-            const dy = to.y - from.y;
-
-            const distance = Math.sqrt(dx * dx + dy * dy);
-
-            const spacing = Math.max(10, (brushSize / 0.06) * 35); /* Calcula o espaçamento ideal dinamicamente baseado no tamanho do pincel */
-            const steps = Math.max(1, Math.ceil(distance / spacing));
-
-            for (let i = 1; i <= steps; i++) {
-                const t = i / steps;
-
-                const x = from.x + dx * t;
-                const y = from.y + dy * t;
-
-                paintAt(x, y);
-            }
-        }
-
-        paintBtn.addEventListener('click', () => {
-            isPaintMode = !isPaintMode;
-
-            paintBtn.innerText = isPaintMode ? 'Move' : 'Draw';
-
-            controls.enabled = !isPaintMode;
-
-            container.style.cursor = isPaintMode ? 'none' : '';
-            brushCursor.style.display = isPaintMode ? 'block' : 'none';
-
-            isPainting = false;
-            lastPointer = null;
-        });
-
-        function undoLastStroke() {
-            if (strokes.length > 0) {
-                const lastStroke = strokes.pop();
-                lastStroke.forEach(decal => {
-                    scene.remove(decal);
-                    decal.geometry.dispose();
-                    decal.material.dispose();
-                    const index = decals.indexOf(decal);
-                    if (index > -1) {
-                        decals.splice(index, 1);
-                    }
-                });
-            }
-        }
-
-        undoBtn.addEventListener('click', undoLastStroke);
-
-        window.addEventListener('keydown', (e) => {
-            if (e.key.toLowerCase() === 's' && e.target.tagName !== 'INPUT') {
-                saveBtn.click();
-            }
-            if (e.key.toLowerCase() === 'm' && e.target.tagName !== 'INPUT') {
-                paintBtn.click();
-            }
-            if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z' && e.target.tagName !== 'INPUT') {
-                e.preventDefault();
-                undoLastStroke();
-            }
-            if (e.key.toLowerCase() === 'c' && e.target.tagName !== 'INPUT') {
-                colorPickerBtn.click();
-            }
-            if (e.key.toLowerCase() === 'i' && window.EyeDropper && e.target.tagName !== 'INPUT') {
-                eyedropperBtn.click();
-            }
-            if (e.key === '1' && e.target.tagName !== 'INPUT') {
-                let val = parseInt(sizeInput.value) - 1;
-                if (val < 1) val = 1;
-                sizeInput.value = val;
-                brushSize = val / 100;
-                sizeSlider.value = brushSize;
-                updateBrushCursorSize();
-            }
-            if (e.key === '2' && e.target.tagName !== 'INPUT') {
-                let val = parseInt(sizeInput.value) + 1;
-                if (val > 20) val = 20;
-                sizeInput.value = val;
-                brushSize = val / 100;
-                sizeSlider.value = brushSize;
-                updateBrushCursorSize();
-            }
-            if ((e.key === 'Delete' || e.key === 'Backspace') && e.target.tagName !== 'INPUT') {
-                resetBtn.click();
-            }
-        });
-
-        resetBtn.addEventListener('click', () => {
-            decals.forEach((decal) => {
-                scene.remove(decal);
-                decal.geometry.dispose();
-                decal.material.dispose();
-            });
-
-            decals.length = 0;
-            strokes.length = 0;
-            lastPointer = null;
-        });
-
-        saveBtn.addEventListener('click', () => {
-            // Tira a foto do canvas atual e transforma numa URL de imagem base64
-            const imageURL = renderer.domElement.toDataURL('image/png');
-            // Cria um link temporário para forçar o download
-            const link = document.createElement('a');
-            link.download = 'who-is-bruno-drawing.png'; // Nome padrão do arquivo que será baixado
-            link.href = imageURL;
-            link.click();
-        });
-
-        window.addEventListener('mousemove', (e) => {
-            if (isPaintMode) {
-                brushCursor.style.left = `${e.clientX}px`;
-                brushCursor.style.top = `${e.clientY}px`;
-            }
-        });
-
-        renderer.domElement.addEventListener('pointerdown', (event) => {
-            if (!isPaintMode) return;
-
-            isPainting = true;
-            strokes.push([]); // Inicia um novo traço (stroke)
-
-            lastPointer = {
-                x: event.clientX,
-                y: event.clientY
-            };
-
-            paintAt(event.clientX, event.clientY);
-        });
-
-        renderer.domElement.addEventListener('pointermove', (event) => {
-            if (!isPaintMode || !isPainting) return;
-
-            const currentPointer = {
-                x: event.clientX,
-                y: event.clientY
-            };
-
-            if (lastPointer) {
-                paintStroke(lastPointer, currentPointer);
-            } else {
-                paintAt(event.clientX, event.clientY);
-            }
-
-            lastPointer = currentPointer;
-        });
-
-        window.addEventListener('pointerup', () => {
-            isPainting = false;
-            lastPointer = null;
-        });
-
-        window.addEventListener('pointerleave', () => {
-            isPainting = false;
-            lastPointer = null;
-        });
-
-        loader.load(
-            'Elements/Bruno face.glb',
-            (gltf) => {
-                const model = gltf.scene;
-                loadedModel = model;
-
-                const box = new THREE.Box3().setFromObject(model);
-                const center = box.getCenter(new THREE.Vector3());
-
-                model.position.sub(center);
-
-                model.traverse((child) => {
-                    if (child.isMesh) {
-                        child.material = new THREE.MeshStandardMaterial({
-                            color: 0xffffff,
-                            roughness: 0.9,
-                            metalness: 0
-                        });
-
-                        child.material.needsUpdate = true;
-
-                        meshes.push(child);
-                    }
-                });
-
-                scene.add(model);
-
-                const newBox = new THREE.Box3().setFromObject(model);
-                const sphere = newBox.getBoundingSphere(new THREE.Sphere());
-
-                camera.position.set(0, 0, sphere.radius * 2.2);
-                controls.target.set(0, 0, 0);
-                controls.update();
-            },
-            undefined,
-            (error) => {
-                console.error('Erro ao carregar o modelo:', error);
-            }
-        );
-
-        function animate() {
-            requestAnimationFrame(animate);
-            controls.update();
-            renderer.render(scene, camera);
-        }
-
-        animate();
-
-        updateBrushCursorSize();
-
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        });
-    </script>
-</body>
-</html>
