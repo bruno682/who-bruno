@@ -1,52 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@700;800&display=swap" rel="stylesheet">
+<head>
     <meta charset="UTF-8" />
-    <title>keep moving</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keep Moving</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700;800&display=swap" rel="stylesheet">
 
     <!-- p5.js CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
 
     <style>
-      body {
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-        background: black;
-        font-family: 'Inter', Helvetica, Arial, sans-serif;
-      }
-      #hint {
-  position: fixed;
-  top: 80%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 200px;
-  opacity: 0.6;
-  pointer-events: none;
-  transition: opacity 0.4s ease;
-  animation: circleMove 2s linear infinite;
-}
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: black;
+            font-family: 'Inter', Helvetica, Arial, sans-serif;
+        }
 
-@keyframes circleMove {
-  0% { transform: translate(-50%, -50%) rotate(0deg) translate(20px) rotate(0deg); }
-  100% { transform: translate(-50%, -50%) rotate(360deg) translate(20px) rotate(-360deg); }
-}
+        .back-button {
+            position: fixed;
+            top: clamp(12px, 2vw, 24px);
+            left: clamp(12px, 2vw, 24px);
+            z-index: 100;
+            width: clamp(80px, 13vw, 250px);
+            height: clamp(80px, 13vw, 250px);
+            display: block;
+            cursor: pointer;
+        }
+
+        #logo-container {
+            width: 100%;
+            height: 100%;
+        }
+
+        #hint {
+            position: fixed;
+            top: 80%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: clamp(90px, 14vw, 200px);
+            height: auto;
+            opacity: 0.6;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+            animation: circleMove 2s linear infinite;
+        }
+
+        @keyframes circleMove {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg) translate(20px) rotate(0deg);
+            }
+
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg) translate(20px) rotate(-360deg);
+            }
+        }
+
+        @media (max-width: 900px) {
+            .back-button {
+                width: 72px;
+                height: 72px;
+            }
+
+            #hint {
+                top: 82%;
+                width: clamp(80px, 22vw, 140px);
+            }
+        }
     </style>
-  </head>
-<svg id="hint" xmlns="http://www.w3.org/2000/svg" width="89" height="124" viewBox="0 0 89 124" fill="none">
-  <path d="M36.363 33.3428L40.5163 48.8428M68.8015 29.6826L81.589 77.4061C86.1586 94.4602 76.038 111.99 58.9839 116.559C41.916 121.133 24.3751 110.992 19.8213 93.9189L7.08834 46.1809C2.54463 29.1457 12.6632 11.6508 29.6949 7.09427C46.731 2.53657 64.2372 12.6483 68.8015 29.6826Z" stroke="#F4F4F4" stroke-width="12" stroke-linecap="round"/>
-</svg>
-  <body>
+</head>
+
+<body>
+    <svg id="hint" xmlns="http://www.w3.org/2000/svg" width="89" height="124" viewBox="0 0 89 124" fill="none">
+        <path d="M36.363 33.3428L40.5163 48.8428M68.8015 29.6826L81.589 77.4061C86.1586 94.4602 76.038 111.99 58.9839 116.559C41.916 121.133 24.3751 110.992 19.8213 93.9189L7.08834 46.1809C2.54463 29.1457 12.6632 11.6508 29.6949 7.09427C46.731 2.53657 64.2372 12.6483 68.8015 29.6826Z" stroke="#F4F4F4" stroke-width="12" stroke-linecap="round"/>
+    </svg>
 
     <!-- Botão de Voltar 3D -->
-    <a href="menu.html" style="position: fixed; top: 0; left: 0; z-index: 100; width: 250px; height: 250px; display: block; cursor: pointer;">
-        <div id="logo-container" data-color="#ffffff" style="width: 100%; height: 100%;"></div>
+    <a href="menu.html" class="back-button">
+        <div id="logo-container" data-color="#ffffff"></div>
     </a>
 
- <script src="world.js"></script>
+    <script src="world.js"></script>
 
     <!-- Import map para o Three.js -->
     <script type="importmap">
@@ -57,6 +95,7 @@
             }
         }
     </script>
+
     <script type="module" src="corrodit.js"></script>
-  </body>
+</body>
 </html>
