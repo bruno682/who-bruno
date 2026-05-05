@@ -4,78 +4,119 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Enklav</title>
+
     <link rel="stylesheet" href="style.css">
+
     <style>
+        html,
         body {
             margin: 0;
             padding: 0;
             background-color: #000000;
         }
+
+        body {
+            overflow-x: hidden;
+        }
+
         /* Estilos recomendados para o Smooth Scroll */
-        html.lenis, html.lenis body {
+        html.lenis,
+        html.lenis body {
             height: auto;
         }
+
         .lenis.lenis-smooth {
             scroll-behavior: auto;
         }
+
         .lenis.lenis-stopped {
             overflow: hidden;
         }
-        .enklav-intro-video {
-            width: 100vw;
-            height: 100vh;
+
+        .back-button {
+            position: fixed;
+            top: clamp(16px, 3vw, 30px);
+            left: clamp(18px, 4vw, 40px);
+            z-index: 100;
+            width: clamp(72px, 9vw, 130px);
+            height: clamp(72px, 9vw, 130px);
             display: block;
-            object-fit: cover; /* Faz o vídeo cobrir toda a tela sem distorcer */
-            pointer-events: none; /* Impede cliques, impossibilitando pausar */
+            cursor: pointer;
         }
+
+        #logo-container {
+            width: 100%;
+            height: 100%;
+        }
+
+        .enklav-intro-video {
+            width: 100%;
+            height: 100dvh;
+            display: block;
+            object-fit: cover;
+            pointer-events: none;
+            background-color: #000000;
+        }
+
         .video-1 {
             position: sticky;
             top: 0;
             z-index: 1;
         }
+
         .video-2 {
             position: relative;
             z-index: 2;
-            background-color: #000000; /* Evita qualquer fundo piscando antes do vídeo sobrepor completamente */
+            background-color: #000000;
         }
+
+        .video-wrapper {
+            position: relative;
+            height: 300dvh;
+            background-color: #000000;
+        }
+
         .video-3-wrapper {
-            position: relative;
             z-index: 3;
-            height: 300vh; /* Reduzido para fluir melhor e não ficar travado */
-            background-color: #000000;
         }
-        .video-3 {
-            position: sticky;
-            top: 0;
-        }
+
         .video-4-wrapper {
-            position: relative;
             z-index: 4;
-            height: 300vh; /* Reduzido para fluir melhor e não ficar travado */
-            margin-top: -100vh; /* Cria o efeito do vídeo 4 deslizar por cima do vídeo 3 enquanto este está grudado */
-            background-color: #000000;
+            margin-top: -100dvh;
         }
-        .video-4 {
-            position: sticky;
-            top: 0;
-        }
+
         .video-5-wrapper {
-            position: relative;
             z-index: 5;
-            height: 300vh; /* Define o espaço de rolagem para o efeito de scrub */
-            margin-top: -100vh; /* Cria o efeito do vídeo 5 deslizar por cima do vídeo 4 */
-            background-color: #000000;
+            margin-top: -100dvh;
         }
-        .video-5 {
+
+        .sticky-video {
             position: sticky;
             top: 0;
+        }
+
+        @media (max-width: 900px) {
+            .back-button {
+                width: 72px;
+                height: 72px;
+            }
+
+            .video-wrapper {
+                height: 250dvh;
+            }
+
+            .video-4-wrapper,
+            .video-5-wrapper {
+                margin-top: -100dvh;
+            }
         }
     </style>
 </head>
+
 <body>
     <!-- Botão de voltar com o logo 3D -->
-    <a href="work.html" style="position: fixed; top: 30px; left: 40px; z-index: 100; width: 9vw; height: 9vw; display: block; cursor: pointer;">
-        <div id="logo-container" data-color="#ffffff" style="width: 100%; height: 100%;"></div>
+    <a href="work.html" class="back-button">
+        <div id="logo-container" data-color="#ffffff"></div>
     </a>
 
     <!-- Primeiro Vídeo full screen -->
@@ -84,19 +125,19 @@
     <!-- Segundo Vídeo full screen -->
     <video id="video-2" src="Elements/Enklav port 2.mp4" class="enklav-intro-video video-2" muted playsinline></video>
 
-    <!-- Terceiro Vídeo full screen (Scroll Scrub) -->
-    <div id="video-3-wrapper" class="video-3-wrapper">
-        <video id="video-3" src="Elements/enklav port 3.mp4" class="enklav-intro-video video-3" preload="auto" muted playsinline loop></video>
+    <!-- Terceiro Vídeo full screen -->
+    <div id="video-3-wrapper" class="video-wrapper video-3-wrapper">
+        <video id="video-3" src="Elements/enklav port 3.mp4" class="enklav-intro-video sticky-video" preload="auto" muted playsinline loop></video>
     </div>
 
-    <!-- Quarto Vídeo full screen (Scroll Scrub) -->
-    <div id="video-4-wrapper" class="video-4-wrapper">
-        <video id="video-4" src="Elements/Enklav port 4.mp4" class="enklav-intro-video video-4" preload="auto" muted playsinline></video>
+    <!-- Quarto Vídeo full screen -->
+    <div id="video-4-wrapper" class="video-wrapper video-4-wrapper">
+        <video id="video-4" src="Elements/Enklav port 4.mp4" class="enklav-intro-video sticky-video" preload="auto" muted playsinline></video>
     </div>
 
-    <!-- Quinto Vídeo full screen (Scroll Scrub) -->
-    <div id="video-5-wrapper" class="video-5-wrapper">
-        <video id="video-5" src="Elements/Enklav port 5.mp4" class="enklav-intro-video video-5" preload="auto" muted playsinline loop></video>
+    <!-- Quinto Vídeo full screen -->
+    <div id="video-5-wrapper" class="video-wrapper video-5-wrapper">
+        <video id="video-5" src="Elements/Enklav port 5.mp4" class="enklav-intro-video sticky-video" preload="auto" muted playsinline loop></video>
     </div>
 
     <!-- Script do Three.js e do botão 3D -->
@@ -108,14 +149,15 @@
             }
         }
     </script>
+
     <script type="module" src="corrodit.js"></script>
 
-    <!-- Lenis Smooth Scroll (Sucessor do Locomotive) -->
+    <!-- Lenis Smooth Scroll -->
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+
     <script>
-        // Inicializa o Scroll Suave para suavizar as animações dos frames
         const lenis = new Lenis({
-            duration: 1.5, // Quanto maior, mais suave (e amanteigado)
+            duration: 1.5,
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), 
             smoothWheel: true,
         });
@@ -135,17 +177,15 @@
             document.getElementById('video-5')
         ];
 
-        // Lógica de trava no video-2
         const video2 = document.getElementById('video-2');
         let isVideo2Finished = false;
         let isVideo2Playing = false;
 
         video2.addEventListener('ended', () => {
             isVideo2Finished = true;
-            lenis.start(); // Libera o scroll quando o vídeo acabar
+            lenis.start();
         });
 
-        // Lógica de trava no video-4
         const video4Wrapper = document.getElementById('video-4-wrapper');
         const video4 = document.getElementById('video-4');
         let isVideo4Finished = false;
@@ -153,10 +193,9 @@
 
         video4.addEventListener('ended', () => {
             isVideo4Finished = true;
-            lenis.start(); // Libera o scroll quando o vídeo acabar
+            lenis.start();
         });
 
-        // 1. Toca os vídeos de scroll automaticamente apenas quando cobrirem a tela toda
         const videoObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -175,11 +214,8 @@
 
         let resetScrollTimeout;
 
-        // 2. Usa a velocidade do scroll para acelerar ou voltar o vídeo
         lenis.on('scroll', (e) => {
-            // Trava o scroll no video-2 até acabar e inicia a reprodução
             if (!isVideo2Finished && window.scrollY >= video2.offsetTop) {
-                // Garante que a tela trave perfeitamente alinhada na base/limite do video-2
                 if (window.scrollY > video2.offsetTop) {
                     lenis.scrollTo(video2.offsetTop, { immediate: true });
                 }
@@ -189,12 +225,11 @@
                     video2.play().catch(() => {});
                     isVideo2Playing = true;
                 }
-                return; // Impede a aceleração com scroll enquanto estiver travado
+
+                return;
             }
 
-            // Trava o scroll no video-4 até acabar e inicia a reprodução
             if (isVideo2Finished && !isVideo4Finished && window.scrollY >= video4Wrapper.offsetTop) {
-                // Garante que a tela trave perfeitamente alinhada na base/limite do video-4
                 if (window.scrollY > video4Wrapper.offsetTop) {
                     lenis.scrollTo(video4Wrapper.offsetTop, { immediate: true });
                 }
@@ -204,7 +239,8 @@
                     video4.play().catch(() => {});
                     isVideo4Playing = true;
                 }
-                return; // Impede a aceleração com scroll enquanto estiver travado
+
+                return;
             }
 
             const velocity = e.velocity || 0;
@@ -213,25 +249,23 @@
                 scrollVideos.forEach(v => {
                     if (v && !isNaN(v.duration)) {
                         if (velocity > 0) {
-                            // Scroll para baixo: Acelera de forma fluida e nativa (sem pulos abruptos)
                             if (v.paused) v.play().catch(() => {});
                             v.playbackRate = Math.min(4.0, 1 + velocity * 0.05);
                         } else {
-                            // Scroll para cima: Pausa a reprodução normal e rebobina os frames
                             if (!v.paused) v.pause();
                             v.currentTime += velocity * 0.015;
                         }
                     }
                 });
                 
-                // Retoma a velocidade normal quando o usuário para de fazer scroll
                 clearTimeout(resetScrollTimeout);
+
                 resetScrollTimeout = setTimeout(() => {
                     scrollVideos.forEach(v => {
                         if (v) {
                             v.playbackRate = 1.0;
                             const rect = v.getBoundingClientRect();
-                            // Se pausou para rebobinar, volta a tocar quando o scroll parar
+
                             if (v.paused && rect.top <= window.innerHeight && rect.bottom >= 0) {
                                 v.play().catch(() => {});
                             }
