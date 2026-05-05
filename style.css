@@ -49,13 +49,13 @@
 
 /* Posicionamento mais estável */
 .about {
-    top: 8%;
+    top: 10%;
     left: 0;
     font-size: clamp(4rem, 13vw, 15rem);
 }
 
 .work {
-    top: 28%;
+    top: 30%;
     right: 2%;
     font-size: clamp(4rem, 14vw, 16rem);
 }
