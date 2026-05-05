@@ -6,18 +6,106 @@
     <title>Breu</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <link rel="stylesheet" href="style.css">
+
+    <style>
+        .back-button {
+            position: fixed;
+            top: clamp(12px, 2vw, 24px);
+            left: clamp(12px, 2vw, 24px);
+            z-index: 100;
+            width: clamp(80px, 13vw, 250px);
+            height: clamp(80px, 13vw, 250px);
+            display: block;
+            cursor: pointer;
+        }
+
+        #logo-container {
+            width: 100%;
+            height: 100%;
+        }
+
+        .intro-video-container {
+            padding: clamp(40px, 10vw, 140px) clamp(24px, 18vw, 320px);
+        }
+
+        #scroll-indicator {
+            width: clamp(140px, 18vw, 253px);
+            height: auto;
+        }
+
+        .image-description,
+        .video-description,
+        .video-description1,
+        .video-description2 {
+            font-size: clamp(1.5rem, 4vw, 4rem);
+        }
+
+        .image-sub-description {
+            font-size: clamp(1rem, 2vw, 2rem);
+        }
+
+        .breu-image,
+        .breu-video {
+            max-width: 90vw;
+            max-height: 80dvh;
+            object-fit: contain;
+        }
+
+        .section-mockups {
+            width: 100%;
+            min-height: 100dvh;
+        }
+
+        #mockup-container {
+            width: min(90%, 1400px);
+            height: 90dvh;
+        }
+
+        .mockup-img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+        }
+
+        @media (max-width: 900px) {
+            .intro-video-container {
+                padding: clamp(24px, 8vw, 70px);
+            }
+
+            .image-text-container,
+            .video-text-container,
+            .video-text-container1,
+            .video-text-container2 {
+                top: 16px;
+                left: 16px;
+                right: auto;
+                max-width: calc(100% - 32px);
+            }
+
+            .video-text-container1,
+            .video-text-container2 {
+                top: auto;
+                bottom: 16px;
+            }
+
+            .marquee span {
+                font-size: clamp(4rem, 18vw, 8rem);
+            }
+        }
+    </style>
 </head>
+
 <body class="scrollable-page">
     <!-- Botão de voltar com o logo 3D -->
-    <a href="menu.html" style="position: fixed; top: 0; left: 0; z-index: 100; width: 250px; height: 250px; display: block; cursor: pointer;">
-        <div id="logo-container" data-color="#ffffff" style="width: 100%; height: 100%;"></div>
+    <a href="menu.html" class="back-button">
+        <div id="logo-container" data-color="#ffffff"></div>
     </a>
 
     <div class="intro-wrapper">
         <div class="intro-video-container">
-            <video src="Elements/Breu Port 4.mp4" autoplay muted id="intro-video"></video>
+            <video src="Elements/Breu port 4.mp4" autoplay muted id="intro-video"></video>
             <svg id="scroll-indicator" class="visible" xmlns="http://www.w3.org/2000/svg" width="253" height="31" viewBox="0 0 253 31" fill="none">
-              <path d="M1.5 1.5H251M103 18.5L120 28.315L137 18.5" stroke="white" stroke-opacity="0.7" stroke-width="3" stroke-linecap="round"/>
+                <path d="M1.5 1.5H251M103 18.5L120 28.315L137 18.5" stroke="white" stroke-opacity="0.7" stroke-width="3" stroke-linecap="round"/>
             </svg>
         </div>
     </div>
@@ -28,12 +116,14 @@
             <span>NIGHT#MOON#BATMAN#DARK#SILENCE#</span>
         </div>
     </div>
+
     <div class="marquee-container">
         <div class="marquee">
             <span>NIGHT#MOON#BATMAN#DARK#SILENCE#</span>
             <span>NIGHT#MOON#BATMAN#DARK#SILENCE#</span>
         </div>
     </div>
+
     <div class="marquee-container">
         <div class="marquee">
             <span>NIGHT#MOON#BATMAN#DARK#SILENCE#</span>
@@ -53,9 +143,10 @@
                         <img src="Elements/PHOTO-2026-03-24-15-36-51.jpg" alt="Poster Breu" class="breu-image">
                     </div>
                 </div>
+
                 <div class="slide">
                     <div class="video-container">
-                        <video src="Elements/Breu Port 4.mp4" autoplay muted loop class="breu-video"></video>
+                        <video src="Elements/Breu port 2.mp4" autoplay muted loop class="breu-video"></video>
                         <div class="video-text-container">
                             <p class="video-description">From structure to form.</p>
                         </div>
@@ -64,6 +155,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="slide">
                     <div class="image-container">
                         <div class="image-text-container">
@@ -72,7 +164,7 @@
                         <div class="video-text-container2">
                             <p class="video-description2">Letters emerge from absence.</p>
                         </div>
-                        <img src="Elements/imagem negative breu.png" alt="Poster Breu" class="breu-image">
+                        <img src="Elements/imagem negative breu.png" alt="Negative space Breu" class="breu-image">
                     </div>
                 </div>
             </div>
@@ -81,18 +173,18 @@
 
     <section class="section-mockups">
         <div id="mockup-container">
-                            <img src="Elements/Breu Mockup 2.jpg" class="mockup-img active" id="img-1">
-                            <img src="Elements/Breu Mockup 5.jpg" class="mockup-img" id="img-2">
-                            <img src="Elements/Breu mockup 6.jpg" class="mockup-img" id="img-3">
-                            <img src="Elements/Breu mockup 8.jpg" class="mockup-img" id="img-4">
-                            <img src="Elements/Breu mockup 10.jpg" class="mockup-img" id="img-5">
-                            <img src="Elements/Breu posteres.png" class="mockup-img" id="img-6">
-                            
-                            <div id="mockup-ui">
-                                <span id="mockup-name">247</span>
-                            </div>
-                        </div>
-                    </section>
+            <img src="Elements/Breu Mockup 2.jpg" class="mockup-img active" id="img-1" alt="Breu mockup 1">
+            <img src="Elements/Breu Mockup 5.jpg" class="mockup-img" id="img-2" alt="Breu mockup 2">
+            <img src="Elements/Breu mockup 6.jpg" class="mockup-img" id="img-3" alt="Breu mockup 3">
+            <img src="Elements/Breu mockup 8.jpg" class="mockup-img" id="img-4" alt="Breu mockup 4">
+            <img src="Elements/Breu mockup 10.jpg" class="mockup-img" id="img-5" alt="Breu mockup 5">
+            <img src="Elements/Breu posteres.png" class="mockup-img" id="img-6" alt="Breu posters">
+            
+            <div id="mockup-ui">
+                <span id="mockup-name">247</span>
+            </div>
+        </div>
+    </section>
 
     <!-- Import map para o Three.js -->
     <script type="importmap">
@@ -103,6 +195,7 @@
             }
         }
     </script>
+
     <script type="module" src="corrodit.js"></script>
     <script src="main.js"></script>
 </body>
