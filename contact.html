@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bolinha Gummy Interativa</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="contact-page">
+<a href="menu.html" style="position: fixed; top: 0; left: 0; z-index: 100; width: 10vw; height: 10vw; display: block; cursor: pointer;">
+    <div id="logo-container" data-color="#222222" style="width: 100%; height: 100%;"></div>
+</a>
+    <!-- Contêiner do Fundo 3D caindo -->
+    <div id="physics-bg" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 1; pointer-events: none;"></div>
+    <main class="contact-content">
+    <div class="contact-message-container">
+        <h1 class="contact-message-title">Make interactive design with only a message</h1>
+    </div>
+
+    <section class="contact-card">
+        <div class="form-section">
+            <form>
+                <div class="input-group">
+                    <label>Name</label>
+                    <input type="text">
+                </div>
+                <div class="input-group">
+                    <label>E-mail</label>
+                    <input type="email">
+                </div>
+                <div class="input-group">
+                    <label>Message</label>
+                    <textarea rows="1"></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Contact Us</button>
+            </form>
+        </div>
+
+        <div class="info-section">
+            <div class="info-item">
+                <h3>Contact</h3>
+                <p>eiddesign@hotmail.com</p>
+            </div>
+            <div class="info-item">
+                <h3>Based in</h3>
+                <p>Aveiro, Portugal</p>
+            </div>
+            <div class="social-icons">
+                </div>
+        </div>
+    </section>
+</main>
+
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+                "three/examples/jsm/loaders/GLTFLoader": "https://unpkg.com/three@0.160.0/examples/jsm/loaders/GLTFLoader.js",
+                "cannon-es": "https://unpkg.com/cannon-es@0.20.0/dist/cannon-es.js"
+            }
+        }
+    </script>
+
+<script type="module" src="script.js"></script>
+<script type="module" src="corrodit.js"></script>
+<script type="module" src="contact-bg.js"></script>
+</body>
+</html>

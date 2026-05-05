@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Family</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+  </style>
+</head>
+<body class="bg-[#ffffff] text-[#1A1A1A] min-h-screen p-10 md:p-20">
+
+  <!-- Botão de voltar com o logo 3D -->
+  <a href="about.html" style="position: fixed; top: 30px; left: 40px; z-index: 100; width: 9vw; height: 9vw; display: block; cursor: pointer;">
+      <div id="logo-container" data-color="#222222" style="width: 100%; height: 100%;"></div>
+  </a>
+
+  <main class="w-full pt-8 md:pt-0">
+    
+    <!-- Seção Superior: Grid com Imagem à esquerda e Texto à direita -->
+    <div id="top-section" class="sticky top-10 md:top-20 z-0 grid grid-cols-1 md:grid-cols-[4.2fr_5.8fr] lg:grid-cols-[4.2fr_5.8fr] gap-10 md:gap-10 lg:gap-12 items-stretch transition-[filter] duration-75">
+      
+      <!-- Coluna da Esquerda (Imagem) -->
+      <div class="flex flex-col">
+        <img src="Elements/IMG_0012.jpg" alt="Young Bruno" class="w-full h-full shadow-lg object-cover" />
+      </div>
+
+      <!-- Coluna da Direita (Título e Texto) -->
+      <div class="flex flex-col justify-between gap-12">
+        <div class="flex flex-col gap-12">
+          <h1 class="text-[2.2rem] md:text-[3.2vw] lg:text-[4vw] xl:text-[4.2vw] font-bold leading-[1.1] -mt-4 md:-mt-8 lg:-mt-3 whitespace-nowrap">Bruno Enrico Eid Alcântara</h1>
+          <p class="text-3xl md:text-5xl lg:text-[3rem] leading-relaxed text-[#6B6B6B] w-[90%] lg:w-[80%]">
+            During his time at school, Bruno had little interest in studying at home and focused primarily on doing the minimum required to pass his exams.
+          </p>
+        </div>
+        <p class="text-2xl md:text-4xl lg:text-[2.5rem] leading-relaxed text-[#6B6B6B] w-[80%] lg:w-[60%] text-right self-end mt-10 md:mt-0">
+          He decided to pursue design after attempting to create a logo for his parents’ business using his phone and a drawing application.
+        </p>
+      </div>
+
+    </div>
+
+    <!-- Seção Inferior: Imagem grande e texto final -->
+    <div id="bottom-section" class="mt-[30vh] md:mt-[40vh] relative z-10 -mx-10 md:-mx-20 -mb-10 md:-mb-20">
+      <img src="Life/IMG_8604.png" alt="Bruno Now" class="w-full h-screen object-cover shadow-2xl" />
+      <p class="absolute top-50 left-70 md:top-60 md:left-80 text-3xl md:text-5xl lg:text-[3rem] text-left max-w-[80%] lg:max-w-[45%] leading-relaxed text-white">
+        He now works from home, developing his skills and building a professional path in design.
+      </p>
+    </div>
+
+  </main>
+
+  <!-- Import map para o Three.js -->
+  <script type="importmap">
+      {
+          "imports": {
+              "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+              "three/examples/jsm/loaders/GLTFLoader": "https://unpkg.com/three@0.160.0/examples/jsm/loaders/GLTFLoader.js"
+          }
+      }
+  </script>
+  <script type="module" src="corrodit.js"></script>
+
+  <!-- Script para o efeito de escurecimento no scroll -->
+  <script>
+    const topSection = document.getElementById('top-section');
+    const bottomSection = document.getElementById('bottom-section');
+
+    window.addEventListener('scroll', () => {
+      if (!topSection || !bottomSection) return;
+
+      const bottomRect = bottomSection.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+
+      // Quando a seção inferior começar a aparecer na tela
+      if (bottomRect.top <= windowHeight && bottomRect.top >= 0) {
+        // Calcula a porcentagem do scroll da imagem na tela
+        let progress = 1 - (bottomRect.top / windowHeight);
+        // Aplica o filtro de brilho reduzindo até 30% da cor original (70% mais escuro)
+        topSection.style.filter = `brightness(${1 - (progress * 0.7)})`;
+      } else if (bottomRect.top > windowHeight) {
+        topSection.style.filter = 'brightness(1)';
+      }
+    });
+  </script>
+</body>
+</html>

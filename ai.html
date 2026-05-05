@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#F5F5F3] text-[#1A1A1A] font-sans">
+
+  <!-- 3D Back Button -->
+  <a href="menu.html" style="position: fixed; top: 30px; left: 40px; z-index: 100; width: 9vw; height: 9vw; display: block; cursor: pointer;">
+      <div id="logo-container" data-color="#222222" style="width: 100%; height: 100%;"></div>
+  </a>
+
+  <main class="min-h-screen">
+    <section class="w-full px-10 py-28 md:px-20 lg:px-40 lg:py-48 max-w-[140rem] mx-auto">
+      
+      <!-- Header -->
+      <div class="max-w-none">
+        <p class="mb-12 text-lg md:text-2xl font-medium uppercase tracking-[0.25em] text-[#5A6C7D]">
+          About
+        </p>
+
+        <h1 class="text-[3.5rem] leading-[1.25] md:text-[6rem] lg:text-[7.5rem] md:leading-[1.1] lg:leading-[1.05]">
+          I am an interaction designer interested in how people experience the world — not only through interfaces, but also through attention, time, and perception.
+        </h1>
+      </div>
+
+      <!-- Grid -->
+      <div class="mt-40 grid grid-cols-1 gap-24 md:grid-cols-[1.3fr_0.7fr] md:gap-40 lg:gap-56">
+        
+        <!-- Text -->
+        <div class="space-y-32">
+          
+          <section>
+            <h2 class="mb-10 text-2xl font-bold md:text-4xl lg:text-5xl">Approach</h2>
+            <p class="text-lg md:text-2xl lg:text-3xl leading-relaxed md:leading-snug lg:leading-[1.4] text-[#6B6B6B]">
+              I believe that good interaction design is not only usability — it is also rhythm, clarity, and meaning. I enjoy working with simple structures, subtle interactions, and interfaces that guide without overwhelming.
+            </p>
+          </section>
+
+          <section>
+            <h2 class="mb-10 text-2xl font-bold md:text-4xl lg:text-5xl">Background</h2>
+            <p class="text-lg md:text-2xl lg:text-3xl leading-relaxed md:leading-snug lg:leading-[1.4] text-[#6B6B6B]">
+              I am currently studying design at the University of Aveiro. Beyond digital work, I also explore product design and aesthetic thinking.
+            </p>
+          </section>
+
+          <section>
+            <h2 class="mb-10 text-2xl font-bold md:text-4xl lg:text-5xl">Perspective</h2>
+            <p class="text-lg md:text-2xl lg:text-3xl leading-relaxed md:leading-snug lg:leading-[1.4] text-[#6B6B6B]">
+              I am interested in creating calm, intuitive, and intentional interfaces. My work aims to reduce excess and give space to what is essential.
+            </p>
+          </section>
+
+          <a href="#" class="inline-block text-base md:text-lg lg:text-xl text-[#5A6C7D] border-b-[2px] border-transparent hover:border-[#5A6C7D] pb-1 mt-8">
+            bruenricoeid@hotmail.com
+          </a>
+        </div>
+
+        <!-- Image -->
+        <div>
+          <div class="aspect-[4/5] w-full overflow-hidden bg-[#E7E5E1] shadow-[0_25px_60px_rgba(0,0,0,0.12)]">
+            <img src="Facets/Port p mai.png"
+              class="w-full h-full object-cover grayscale" />
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- Import map for Three.js -->
+  <script type="importmap">
+      {
+          "imports": {
+              "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+              "three/examples/jsm/loaders/GLTFLoader": "https://unpkg.com/three@0.160.0/examples/jsm/loaders/GLTFLoader.js"
+          }
+      }
+  </script>
+  <script type="module" src="corrodit.js"></script>
+
+</body>
+</html>

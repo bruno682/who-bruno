@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Breu</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="scrollable-page">
+    <!-- Botão de voltar com o logo 3D -->
+    <a href="menu.html" style="position: fixed; top: 0; left: 0; z-index: 100; width: 250px; height: 250px; display: block; cursor: pointer;">
+        <div id="logo-container" data-color="#ffffff" style="width: 100%; height: 100%;"></div>
+    </a>
+
+    <div class="intro-wrapper">
+        <div class="intro-video-container">
+            <video src="Elements/Breu port 4.mp4" autoplay muted id="intro-video"></video>
+            <svg id="scroll-indicator" class="visible" xmlns="http://www.w3.org/2000/svg" width="253" height="31" viewBox="0 0 253 31" fill="none">
+              <path d="M1.5 1.5H251M103 18.5L120 28.315L137 18.5" stroke="white" stroke-opacity="0.7" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+        </div>
+    </div>
+
+    <div class="marquee-container">
+        <div class="marquee">
+            <span>NIGHT#MOON#BATMAN#DARK#SILENCE#</span>
+            <span>NIGHT#MOON#BATMAN#DARK#SILENCE#</span>
+        </div>
+    </div>
+    <div class="marquee-container">
+        <div class="marquee">
+            <span>NIGHT#MOON#BATMAN#DARK#SILENCE#</span>
+            <span>NIGHT#MOON#BATMAN#DARK#SILENCE#</span>
+        </div>
+    </div>
+    <div class="marquee-container">
+        <div class="marquee">
+            <span>NIGHT#MOON#BATMAN#DARK#SILENCE#</span>
+            <span>NIGHT#MOON#BATMAN#DARK#SILENCE#</span>
+        </div>
+    </div>
+
+    <div class="scroll-wrapper">
+        <div class="sticky-container">
+            <div class="horizontal-content">
+                <div class="slide">
+                    <div class="image-container">
+                        <div class="image-text-container">
+                            <p class="image-description">Type born from shadow.</p>
+                            <p class="image-sub-description">Inspired by archival images of the İzmir International Fair.</p>
+                        </div>
+                        <img src="Elements/PHOTO-2026-03-24-15-36-51.jpg" alt="Poster Breu" class="breu-image">
+                    </div>
+                </div>
+                <div class="slide">
+                    <div class="video-container">
+                        <video src="Elements/Breu port 2.mp4" autoplay muted loop class="breu-video"></video>
+                        <div class="video-text-container">
+                            <p class="video-description">From structure to form.</p>
+                        </div>
+                        <div class="video-text-container1">
+                            <p class="video-description1">From shadow to letter.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="slide">
+                    <div class="image-container">
+                        <div class="image-text-container">
+                            <p class="image-description">Built from negative space.</p>
+                        </div>
+                        <div class="video-text-container2">
+                            <p class="video-description2">Letters emerge from absence.</p>
+                        </div>
+                        <img src="Elements/imagem negative breu.png" alt="Poster Breu" class="breu-image">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="section-mockups">
+        <div id="mockup-container">
+                            <img src="Elements/Breu Mockup 2.jpg" class="mockup-img active" id="img-1">
+                            <img src="Elements/Breu Mockup 5.jpg" class="mockup-img" id="img-2">
+                            <img src="Elements/Breu mockup 6.jpg" class="mockup-img" id="img-3">
+                            <img src="Elements/Breu mockup 8.jpg" class="mockup-img" id="img-4">
+                            <img src="Elements/Breu mockup 10.jpg" class="mockup-img" id="img-5">
+                            <img src="Elements/Breu posteres.png" class="mockup-img" id="img-6">
+                            
+                            <div id="mockup-ui">
+                                <span id="mockup-name">247</span>
+                            </div>
+                        </div>
+                    </section>
+
+    <!-- Import map para o Three.js -->
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+                "three/examples/jsm/loaders/GLTFLoader": "https://unpkg.com/three@0.160.0/examples/jsm/loaders/GLTFLoader.js"
+            }
+        }
+    </script>
+    <script type="module" src="corrodit.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

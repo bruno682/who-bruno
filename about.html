@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=BBH+Bartle&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Pixelify+Sans:wght@400..700&family=Rubik+Glitch&display=swap" rel="stylesheet">
+
+    <!-- Importa a biblioteca p5.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+    
+    <style>
+   body {
+    font-family: "Inter", sans-serif;
+    margin: 0;
+    display: grid;
+    /* Define duas colunas: a primeira do tamanho da imagem, a segunda o resto */
+    grid-template-columns: max-content 1fr; 
+    
+    /* MUDE AQUI: 'start' joga tudo para o topo da página */
+    align-content: start; 
+    
+    min-height: 100vh;
+    background-color: #ffffff;
+    padding: 80px; /* Margem de 80px nas bordas da tela */
+    box-sizing: border-box;
+    gap: 80px; /* Distância de 80px entre imagem e texto */
+}
+
+/* 2. O container da direita */
+.right-content {
+    order: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; 
+    
+    /* IMPORTANTE: Faz o container do texto ter a mesma altura da imagem */
+    /* Isso garante que a 'bottom-phrase' alinhe com a base da foto */
+    height: 100%; 
+}
+
+/* Aplica apenas ao canvas do p5.js para não afetar o botão 3D */
+canvas.p5Canvas {
+    order: 1;
+    width: 50vw !important;
+    height: auto !important;
+    margin: 0 !important;
+    display: block; /* Remove espaços vazios abaixo do canvas */
+}
+
+.top-texts h1 {
+    margin: 0;
+    line-height: 0.85;
+    font-size: 12vw;
+    font-weight: 800;
+}
+
+.bottom-phrase {
+    margin: 0;
+    text-align: right;
+    align-self: flex-end;
+    max-width: 400px; /* Ajustado para bater com seu print */
+    font-size: 1.9rem;
+    font-weight: 600;
+}
+.blink-text {
+
+animation: blink 2s infinite;
+
+}
+@keyframes blink {
+
+0%, 49% { opacity: 1; }
+
+50%, 100% { opacity: 0; }
+
+}
+
+.bottom-section {
+    order: 3; /* Garante que fique abaixo do canvas (order 1) e right-content (order 2) */
+    grid-column: 1 / -1; /* Ocupa as duas colunas inteiras do grid */
+    display: flex;
+    flex-direction: row;
+    gap: 27vw; /* Adiciona espaçamento entre os links */
+    flex-wrap: wrap; /* Permite que os links quebrem a linha em telas menores */
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh; /* Adiciona a altura de uma tela inteira para forçar o scroll */
+    margin-top: 50px;
+    font-size: 2vw;
+}
+
+.bottom-section a {
+    text-decoration: none;
+    color: #000000;
+    transition: transform 0.3s ease;
+}
+.bottom-section a:hover {
+    transform: scale(1.05);
+}
+
+#hover-image {
+    position: fixed;
+    top: 0px;
+    left: 0;
+    width: 300px; /* Ajuste a largura da imagem desejada */
+    height: 400px; /* Ajuste a altura da imagem desejada */
+    background-size: cover;
+    background-position: center;
+    pointer-events: none; /* Permite clicar através da imagem */
+    opacity: 0; /* Começa invisível */
+    z-index: 9999;
+    transform: translate(-50%, 15px); /* Posiciona o topo da imagem 15px abaixo do cursor */
+    transition: opacity 0.3s ease;
+}
+</style>
+</head>
+
+<body>
+    <!-- Botão de Voltar 3D -->
+    <a href="menu.html" style="position: fixed; top: 30px; left: 40px; z-index: 100; width: 9vw; height: 9vw; display: block; cursor: pointer;">
+        <div id="logo-container" data-color="#222222" style="width: 100%; height: 100%;"></div>
+    </a>
+
+    <div class="right-content">
+        <div class="top-texts">
+            <h1>ABOUT</h1>
+            <h1 class="blink-text">WHO?</h1>
+        </div>
+        
+        <h2 class="bottom-phrase">If I don't know who I am, I will let the ones that know talk </h2>
+    </div>
+
+    <script src="about.js"></script>
+    
+    <div class="bottom-section">
+        <a href="family.html" class="Family">
+            <h1>Family</h1>
+        <a href="ai.html" class="AI">
+            <h1>AI</h1>
+        </a>
+    </div>
+
+    <!-- Elemento da imagem que segue o mouse -->
+    <div id="hover-image"></div>
+
+    <!-- Import map para o Three.js -->
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+                "three/examples/jsm/loaders/GLTFLoader": "https://unpkg.com/three@0.160.0/examples/jsm/loaders/GLTFLoader.js"
+            }
+        }
+    </script>
+    <script type="module" src="corrodit.js"></script>
+
+    <script>
+        const hoverImg = document.getElementById('hover-image');
+        const bottomLinks = document.querySelectorAll('.bottom-section a');
+        
+        // IMPORTANTE: Substitua os caminhos abaixo pelas suas imagens reais
+        const imagensHover = {
+            'Family': 'Elements/IMG_9237.jpg', 
+            'Friends': 'Elements/imagem-friends.jpg',
+            'AI': 'Imagens/Foto IA.png'
+        };
+
+        bottomLinks.forEach(link => {
+            link.addEventListener('mouseenter', () => {
+                const classeLink = link.getAttribute('class');
+                if (imagensHover[classeLink]) {
+                    hoverImg.style.backgroundImage = `url('${imagensHover[classeLink]}')`;
+                    hoverImg.style.opacity = '1'; // Torna a imagem visível
+                }
+            });
+
+            link.addEventListener('mousemove', (e) => {
+                hoverImg.style.left = `${e.clientX}px`;
+                hoverImg.style.top = `${e.clientY}px`;
+            });
+
+            link.addEventListener('mouseleave', () => {
+                hoverImg.style.opacity = '0'; // Oculta a imagem ao sair
+            });
+        });
+    </script>
+</body>
+</html>

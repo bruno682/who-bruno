@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Work</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=BBH+Bartle&family=Inter:wght@400;600;700&family=Pixelify+Sans:wght@400..700&family=Rubik+Glitch&display=swap" rel="stylesheet">
+    <style>
+    .title-work {
+        position: absolute;
+        top: 80px;
+        left: 43vw;
+        font-family: 'Inter', sans-serif;
+        font-size: 49px;
+        font-weight: 520;
+        margin: 0;
+        z-index: 100;
+        color: #000;
+        line-height: 28px;
+    }
+    .model-label {
+        position: absolute;
+        color: #000000; /* Cor inicial branca */
+        font-family: 'Helvetica Neue', sans-serif; /* A fonte que você carregou */
+        font-size: 1.5rem;
+        font-weight: bold;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        transition: all 0.3s ease;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+        z-index: 5;
+    }
+    
+.model-desc {
+    position: fixed;
+    top: 75%; /* Centraliza o bloco verticalmente em relação à metade inferior */
+    left: 45%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 1100px;
+    display: flex;
+    align-items: flex-start; /* Alinha o bloco de texto ao topo da imagem */
+    gap: 50px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+    z-index: 20;
+}
+.model-desc.active {
+    opacity: 1;
+}
+
+/* O retângulo da imagem (Placeholder e a Imagem real) */
+.desc-image-placeholder, .model-desc img {
+    width: 900px;  /* Aumentado de 450px */
+    height: 550px; /* Aumentado de 250px */
+    flex-shrink: 0;
+    object-fit: cover;
+}
+
+.desc-content {
+    text-align: left;
+    color: #000;
+}
+
+/* Aumentada a especificidade para evitar sobreposição do style.css */
+body .model-desc h3,
+body .desc-content h3 {
+    font-family: 'Helvetica Neue', sans-serif !important; /* Nova tipografia importada no <head> */
+    font-size: 4.5rem; 
+    margin: -5px 0 15px 0; /* Ajuste fino para alinhar perfeitamente ao topo */
+    font-weight: 700;
+    text-transform: uppercase;
+    line-height: 0.9;
+    letter-spacing: 2px; 
+}
+
+.desc-content p {
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 2.5rem; /* Aumentado de 1.2rem */
+    line-height: 1.4;
+    width: 500px; /* Largura fixa para não depender da largura do título maior */
+}
+
+/* Quando o mouse estiver sobre o modelo (hover) */
+/* Remova o "filter: brightness(0) invert(1)" do JS se for usar cor via CSS */
+    </style>
+</head>
+<body>
+    <!-- Botão de voltar com o logo 3D -->
+    <a href="menu.html" style="position: fixed; z-index: 100; width: 250px; height: 250px; display: block; cursor: pointer;">
+        <div id="logo-container" data-color="#222222" style="width: 100%; height: 100%;"></div>
+    </a>
+    <h1 class="title-work">THATS MY WORK</h1>
+    <!-- Import map necessário para o Three.js funcionar nativamente no navegador (pois não há bundler) -->
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+                "three/examples/jsm/loaders/GLTFLoader": "https://unpkg.com/three@0.160.0/examples/jsm/loaders/GLTFLoader.js"
+            }
+        }
+    </script>
+    
+    <script type="module" src="corrodit.js"></script>
+    <!-- Linkando a página work.html ao script.js -->
+    <script type="module" src="script1.js"></script>
+</body>
+</html>
